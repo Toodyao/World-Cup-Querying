@@ -9,7 +9,7 @@ include_directories(${google_test_dir}/googlemock/include)
 
 # Add RapidJSON
 set(rapidjson_dir ./third_party/rapidjson)
-include_directories(${rapidjson_dir})
+include_directories(${rapidjson_dir}/include)
 
 # Test files
 add_subdirectory(test)
