@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "rapidjson.h"
+#include "rapidjson/document.h"
 
 TEST(test, successed_test) {
 	EXPECT_EQ(1, 1);
@@ -7,6 +7,12 @@ TEST(test, successed_test) {
 
 TEST(test, failed_test) {
 	EXPECT_EQ(1, 1);
+}
+
+TEST(test, json_read_test) {
+	using namespace rapidjson;
+	Document d;
+	d.Parse("{}");
 }
 
 GTEST_API_ int main(int argc, char** argv) {

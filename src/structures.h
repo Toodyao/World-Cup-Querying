@@ -30,8 +30,11 @@ class Match {
 public:
 	Team home_team;
 	Team away_team;
-	bool winner; // 'True' means winner is home team
+	string winner; // 'True' means winner is home team
 	string time; // Should replace use time library
+	string a;
+	void read(const std::string& json);
 };
+
 
 #endif //WORLD_CUP_QUERYING_STRUCTURES_H
