@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include <rapidjson/document.h>
 using std::string;
 using std::vector;
 
@@ -13,7 +14,8 @@ public:
 	int id;
 	string type; // Should replace use enum
 	string player;
-	string time; // Should use time library
+	string time; // Should use time library // Rewrite use int
+	void read(const rapidjson::Value& v);
 };
 
 class Team {
@@ -23,17 +25,19 @@ public:
 	string code;
 	int goals;
 	int penalties;
-	vector<TeamEvents> events;
+	void read(const rapidjson::Value& v);
 };
 
 class Match {
 public:
 	Team home_team;
 	Team away_team;
+	vector<TeamEvents> home_events;
+	vector<TeamEvents> away_events;
 	string winner; // 'True' means winner is home team
 	string time; // Should replace use time library
-	string a;
 	void read(const std::string& json);
+	void read_events(vector<TeamEvents> events, rapidjson::Value& v);
 };
 
 
