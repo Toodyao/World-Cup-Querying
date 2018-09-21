@@ -1,7 +1,7 @@
 #ifndef WORLD_CUP_QUERYING_MY_TIME_H
 #define WORLD_CUP_QUERYING_MY_TIME_H
 
-#include <time.h>
+#include <ctime>
 #include <string>
 
 class MyTime {

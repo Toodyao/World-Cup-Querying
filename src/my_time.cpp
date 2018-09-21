@@ -19,7 +19,7 @@ MyTime::MyTime(std::string& t) {
 	time_raw.tm_min  = stoi(t.substr(14, 2));
 	time_raw.tm_sec  = stoi(t.substr(17, 2));
 	time_value = mktime(&time_raw);
-	zero_value  = mktime(&zero_time);
+	zero_value = mktime(&zero_time);
 	seconds_total = difftime(time_value, zero_value);
 }
 

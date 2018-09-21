@@ -22,7 +22,7 @@ public:
 	int goal_own;
 };
 
-class TeamEvents {
+class TeamEvent {
 public:
 	int id;
 	string type; // Should replace use enum
@@ -45,12 +45,13 @@ class Match {
 public:
 	Team home_team;
 	Team away_team;
-	vector<TeamEvents> home_events;
-	vector<TeamEvents> away_events;
+	vector<TeamEvent> home_events;
+	vector<TeamEvent> away_events;
 	string winner; // 'True' means winner is home team
 	string time; // Should replace use time library
 	void read(const std::string& json);
-	void read_events(vector<TeamEvents> events, rapidjson::Value& v);
+	void read(const rapidjson::Value& d);
+	void read_events(vector<TeamEvent>& events, const rapidjson::Value& v);
 };
 
 

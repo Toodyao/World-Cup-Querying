@@ -5,15 +5,15 @@ using namespace rapidjson;
 using std::cout;
 using std::endl;
 
-#define DEBUG_OUTPUT
+//#define DEBUG_READ_DATA_OUTPUT
 
-void TeamEvents::read(const Value& v) {
+void TeamEvent::read(const Value& v) {
 	id     = v["id"].GetInt();
 	type   = v["type_of_event"].GetString();
 	player = v["player"].GetString();
 	time   = v["time"].GetString();
 
-#ifdef DEBUG_OUTPUT
+#ifdef DEBUG_READ_DATA_OUTPUT
 	cout << "{" << endl;
 	cout << id << endl;
 	cout << type << endl;
@@ -29,7 +29,7 @@ void Team::read(const Value& v) {
 	goals     = v["goals"].GetInt();
 	penalties = v["penalties"].GetInt();
 
-#ifdef DEBUG_OUTPUT
+#ifdef DEBUG_READ_DATA_OUTPUT
 //	cout << "{" << endl;
 	cout << country << endl;
 	cout << code << endl;
@@ -49,7 +49,7 @@ void Match::read(const std::string& json) {
 	winner = d["winner"].GetString();
 	time = d["datetime"].GetString();
 
-#ifdef DEBUG_OUTPUT
+#ifdef DEBUG_READ_DATA_OUTPUT
 	cout << winner << endl;
 	cout << time << endl;
 #endif
@@ -59,9 +59,27 @@ void Match::read(const std::string& json) {
 
 }
 
-void Match::read_events(vector<TeamEvents> events, rapidjson::Value& v) {
+void Match::read(const rapidjson::Value& d) {
+//	Document d;
+//	d.Parse(json.c_str());
+
+//	d.HasMember("home_team");
+	home_team.read(d["home_team"]);
+	away_team.read(d["away_team"]);
+	winner = d["winner"].GetString();
+	time = d["datetime"].GetString();
+
+#ifdef DEBUG_READ_DATA_OUTPUT
+	cout << winner << endl;
+	cout << time << endl;
+#endif
+	read_events(home_events, d["home_team_events"]);
+	read_events(away_events, d["away_team_events"]);
+}
+
+void Match::read_events(vector<TeamEvent>& events, const rapidjson::Value& v) {
 	for (auto& i : v.GetArray()) {
-		TeamEvents temp;
+		TeamEvent temp;
 		temp.read(i);
 		events.push_back(temp);
 	}
