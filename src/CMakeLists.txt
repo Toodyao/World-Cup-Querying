@@ -7,4 +7,4 @@ add_executable(project_main
         structures.cpp
         compare.hpp
         Heap.hpp
-        )
+        my_time.h my_time.cpp)
