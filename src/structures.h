@@ -9,6 +9,19 @@
 using std::string;
 using std::vector;
 
+class Player {
+public:
+	string name;
+	string country;
+	int goal;
+	int substitution_in;
+	int substitution_out;
+	int yellow_card;
+	int red_card;
+	int goal_penalty;
+	int goal_own;
+};
+
 class TeamEvents {
 public:
 	int id;

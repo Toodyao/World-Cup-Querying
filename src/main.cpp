@@ -1,5 +1,6 @@
 #include <iostream>
 #include "structures.h"
+#include "Heap.hpp"
 #include <rapidjson/filereadstream.h>
 #include <fstream>
 #include <sstream>
@@ -10,10 +11,12 @@ using namespace rapidjson;
 int main() {
 
 	freopen("../../data/test_data", "r", stdin);
-	Match m;
 	string json;
 	getline(cin, json);
+
+	Match m;
 	m.read(json);
-//	m.read(R"({"winner":"success", "home_team":{"country":"Russia"} })");
+
+
 	return 0;
 }

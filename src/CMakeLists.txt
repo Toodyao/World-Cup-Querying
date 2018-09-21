@@ -1,4 +1,10 @@
 cmake_minimum_required (VERSION 3.10)
 project(Main)
 
-add_executable(project_main main.cpp structures.h structures.cpp)
+add_executable(project_main
+        main.cpp
+        structures.h
+        structures.cpp
+        compare.hpp
+        Heap.hpp
+        )
