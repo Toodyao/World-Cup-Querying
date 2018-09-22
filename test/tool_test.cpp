@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <string>
+#include <fstream>
 #include "my_time.h"
 #include "rapidjson/document.h"
 #include "structures.h"
@@ -22,19 +23,30 @@ TEST(tool_test, time_test) {
 	EXPECT_EQ(60*60, t3.seconds());
 }
 
-TEST(tool_test, json_read_test) {
+TEST(tool_test, json_parse_test) {
 	using namespace rapidjson;
 	Document d;
 	d.Parse("{}");
 }
 
+TEST(tool_test, read_file_test) {
+	string json_path = "../../data/test_data";
+
+	ifstream json_file(json_path);
+
+	string json;
+	getline(json_file, json);
+	EXPECT_EQ(json.size(), 2172);
+}
+
 TEST(tool_test, json_read_data) {
 	using namespace rapidjson;
 	using std::string;
-	freopen("../../data/test_data", "r", stdin);
+	string json_path = "../../data/test_data";
+	ifstream json_file(json_path);
 
 	string json;
-	getline(cin, json);
+	getline(json_file, json);
 
 	Document d;
 	d.Parse(json.c_str());
@@ -54,10 +66,11 @@ TEST(tool_test, json_read_data) {
 TEST(tool_test, json_read_all) {
 	using namespace rapidjson;
 	using std::string;
-	freopen("../../data/output-line.json", "r", stdin);
+	string json_path = "../../data/output-line.json";
+	ifstream json_file(json_path);
 
 	string json;
-	getline(cin, json);
+	getline(json_file, json);
 
 	Document d;
 	d.Parse(json.c_str());
@@ -71,10 +84,11 @@ TEST(tool_test, json_read_all) {
 TEST(tool_test, Matches_oprator) {
 	using namespace rapidjson;
 	using std::string;
-	freopen("../../data/output-line.json", "r", stdin);
+	string json_path = "../../data/output-line.json";
+	ifstream json_file(json_path);
 
 	string json;
-	getline(cin, json);
+	getline(json_file, json);
 
 	Document d;
 	d.Parse(json.c_str());
