@@ -84,3 +84,23 @@ void Match::read_events(vector<TeamEvent>& events, const rapidjson::Value& v) {
 		events.push_back(temp);
 	}
 }
+
+void Matches::read(const string& json) {
+	rapidjson::Document d;
+	d.Parse(json.c_str());
+	cout << d.GetType() << endl;
+	assert(d.IsArray());
+	for (auto& i : d.GetArray()) {
+		Match temp;
+		temp.read(i);
+		v.push_back(temp);
+	}
+}
+
+size_t Matches::size() {
+	return v.size();
+}
+
+Match& Matches::operator[](int i) {
+	return v[i];
+}

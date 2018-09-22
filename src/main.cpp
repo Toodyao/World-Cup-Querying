@@ -1,6 +1,6 @@
 #include <iostream>
 #include "structures.h"
-#include "Heap.hpp"
+#include "heap.hpp"
 #include "my_time.h"
 #include <rapidjson/filereadstream.h>
 #include <fstream>
@@ -9,13 +9,11 @@
 using namespace std;
 using namespace rapidjson;
 
-typedef vector<Match> Matches;
-
 void test(string s) {
 	cout << s << endl;
 }
 
-void read_match(Matches m, string json) {
+void read_match(Matches& m, const string& json) {
 	Document d;
 	d.Parse(json.c_str());
 	cout << d.GetType() << endl;

@@ -9,6 +9,16 @@
 using std::string;
 using std::vector;
 
+class Match;
+
+class Matches {
+public:
+	vector<Match> v;
+	void read(const string& json);
+	size_t size();
+	Match& operator [] (int i);
+};
+
 class Player {
 public:
 	string name;

@@ -50,3 +50,37 @@ TEST(tool_test, json_read_data) {
 	EXPECT_EQ(m.winner, "Russia");
 	EXPECT_EQ(m.time, "2018-06-14T15:00:00Z");
 }
+
+TEST(tool_test, json_read_all) {
+	using namespace rapidjson;
+	using std::string;
+	freopen("../../data/output-line.json", "r", stdin);
+
+	string json;
+	getline(cin, json);
+
+	Document d;
+	d.Parse(json.c_str());
+
+	Matches m;
+	m.read(json);
+
+	EXPECT_EQ(m.size(), 64);
+}
+
+TEST(tool_test, Matches_oprator) {
+	using namespace rapidjson;
+	using std::string;
+	freopen("../../data/output-line.json", "r", stdin);
+
+	string json;
+	getline(cin, json);
+
+	Document d;
+	d.Parse(json.c_str());
+
+	Matches m;
+	m.read(json);
+
+	EXPECT_EQ(m[63].winner, "France");
+}
