@@ -5,7 +5,7 @@ add_library(src_files
         structures.h
         structures.cpp
         compare.hpp
-        Heap.hpp
+        heap.hpp
         my_time.h
         my_time.cpp
         )

@@ -8,7 +8,7 @@
 using std::vector;
 
 template <typename T>
-class Heap {
+class heap {
 private:
 	vector<T> v;
 	Compare<T> *cmp;
@@ -16,10 +16,10 @@ private:
 	void percolate_down(int i);
 
 public:
-	explicit Heap(Compare<T> *cmp_t = new MyLess<T>);
-	explicit Heap(int n, Compare<T> *cmp_t = new MyLess<T>);
-	explicit Heap(vector<T> a, Compare<T> *cmp_t = new MyLess<T>);
-	~Heap();
+	explicit heap(Compare<T> *cmp_t = new MyLess<T>);
+	explicit heap(int n, Compare<T> *cmp_t = new MyLess<T>);
+	explicit heap(vector<T> a, Compare<T> *cmp_t = new MyLess<T>);
+	~heap();
 
 	bool empty();
 	int size();
@@ -30,22 +30,22 @@ public:
 };
 
 template<typename T>
-Heap<T>::Heap(Compare<T> *cmp_t) {
+heap<T>::heap(Compare<T> *cmp_t) {
 	heap_size = 0;
 	v.resize(5); // Default size set to 5
 	cmp = cmp_t;
 }
 
 template<typename T>
-Heap<T>::Heap(int n, Compare<T> *cmp_t) {
+heap<T>::heap(int n, Compare<T> *cmp_t) {
 	heap_size = 0;
 	v.resize((unsigned int)n);
 	cmp = cmp_t;
 }
 
 template<typename T>
-Heap<T>::Heap(vector<T> a, Compare<T> *cmp_t) {
-	// create Heap using existing array
+heap<T>::heap(vector<T> a, Compare<T> *cmp_t) {
+	// create heap using existing array
 	int n = (int)a.size();
 	v.resize((unsigned int)n);
 	heap_size = n;
@@ -63,27 +63,27 @@ Heap<T>::Heap(vector<T> a, Compare<T> *cmp_t) {
 }
 
 template<typename T>
-Heap<T>::~Heap() {
+heap<T>::~heap() {
 	delete cmp;
 }
 
 template<typename T>
-bool Heap<T>::empty() {
+bool heap<T>::empty() {
 	return (bool)heap_size;
 }
 
 template<typename T>
-int Heap<T>::size() {
+int heap<T>::size() {
 	return heap_size;
 }
 
 template<typename T>
-T Heap<T>::top() {
+T heap<T>::top() {
 	return v[0];
 }
 
 template<typename T>
-void Heap<T>::push(T x) {
+void heap<T>::push(T x) {
 	if (heap_size >= v.size()) {
 		v.resize((unsigned int)(1.5*heap_size));
 //		std::cout << "heap full" << std::endl;
@@ -98,7 +98,7 @@ void Heap<T>::push(T x) {
 }
 
 template<typename T>
-void Heap<T>::pop() {
+void heap<T>::pop() {
 	// a little difference with percolate_down()
 	int n = heap_size;
 	int x = v[n-1]; // store the last element
@@ -123,7 +123,7 @@ void Heap<T>::pop() {
 }
 
 template<typename T>
-void Heap<T>::percolate_down(int i) {
+void heap<T>::percolate_down(int i) {
 	int n = heap_size;
 	int x = v[i]; // store current element
 //	v[i] = v[n-1];
