@@ -3,9 +3,10 @@
 #include <fstream>
 #include <sstream>
 #include <cstdio>
+#include <set>
 #include "structures.h"
-#include "heap.hpp"
 #include "my_time.h"
+#include "heap.hpp"
 using namespace std;
 using namespace rapidjson;
 
@@ -22,17 +23,49 @@ int main() {
 	string json;
 	getline(json_file, json);
 
-//	Match m;
-//	m.read(json);
-//	cout << m.home_events.size() << endl;
 	Matches m;
 	m.read(json);
 
+	Heap<Player> goal_rank;
+	for (auto& match : m.v) {
+		for (auto& event : match.home_events) {
+			if (event.type == "goal") {
+				Player tmp;
+				tmp.name = event.player;
+				Player* p_player = nullptr;
+				if ((p_player = goal_rank.find(tmp)) != nullptr) {
+					// If player exists in the goal_rank
+					p_player->goal++;
+				}
 
-//	string s("2018-06-14T15:00:00Z");
-////	test(s);
-//	MyTime t(s);
-//	cout << t.get_string() << endl;
-//	cout << t.seconds() << endl;
+				tmp.country = match.home_team.country;
+				tmp.goal++;
+				goal_rank.push(tmp);
+			}
+		}
+		for (auto& event : match.away_events) {
+			if (event.type == "goal") {
+				Player tmp;
+				tmp.name = event.player;
+				Player* p_player = nullptr;
+				if ((p_player = goal_rank.find(tmp)) != nullptr) {
+					// If player exists in the goal_rank
+					p_player->goal++;
+				}
+
+				tmp.country = match.away_team.country;
+				tmp.goal++;
+				goal_rank.push(tmp);
+			}
+		}
+	}
+	for (int i = 0; i < goal_rank.size(); ++i) {
+		cout << goal_rank.top().name;
+		cout << ": ";
+		cout << goal_rank.top().goal << endl;
+		goal_rank.pop();
+	}
+
+
 	return 0;
 }

@@ -114,7 +114,9 @@ TEST(tool_test, Player_oprator) {
 	b.goal = 2;
 	EXPECT_EQ(a > b, true);
 	EXPECT_EQ(a < b, false);
+	a.name = "a";
+	b.name = "b";
 	EXPECT_EQ(a == b, false);
-	a.goal = 2;
+	a.name = "b";
 	EXPECT_EQ(a == b, true);
 }

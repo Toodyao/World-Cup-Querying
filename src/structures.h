@@ -31,14 +31,15 @@ public:
 	int red_card;
 	int goal_penalty;
 	int goal_own;
-	bool operator > (const Player& a) {
+	Player ();
+	bool operator > (const Player& a) const {
 		return this->goal > a.goal;
 	}
-	bool operator < (const Player& a) {
+	bool operator < (const Player& a) const {
 		return this->goal < a.goal;
 	}
-	bool operator == (const Player& a) {
-		return this->goal == a.goal;
+	bool operator == (const Player& a) const {
+		return this->name == a.name;
 	}
 };
 
