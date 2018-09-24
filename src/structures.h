@@ -31,6 +31,15 @@ public:
 	int red_card;
 	int goal_penalty;
 	int goal_own;
+	bool operator > (const Player& a) {
+		return this->goal > a.goal;
+	}
+	bool operator < (const Player& a) {
+		return this->goal < a.goal;
+	}
+	bool operator == (const Player& a) {
+		return this->goal == a.goal;
+	}
 };
 
 class TeamEvent {

@@ -106,3 +106,15 @@ TEST(tool_test, Matches_oprator) {
 
 	EXPECT_EQ(m[63].winner, "France");
 }
+
+
+TEST(tool_test, Player_oprator) {
+	Player a, b;
+	a.goal = 3;
+	b.goal = 2;
+	EXPECT_EQ(a > b, true);
+	EXPECT_EQ(a < b, false);
+	EXPECT_EQ(a == b, false);
+	a.goal = 2;
+	EXPECT_EQ(a == b, true);
+}
