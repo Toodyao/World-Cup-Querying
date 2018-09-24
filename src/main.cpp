@@ -17,7 +17,8 @@ void test(string s) {
 #define DEBUG_READ_DATA_OUTPUT
 
 int main() {
-	string json_path = "../../data/output-line.json";
+//	string json_path = "../../data/output-line.json";
+	string json_path = "../../data/test_data_group";
 	ifstream json_file(json_path);
 
 	string json;
@@ -26,7 +27,7 @@ int main() {
 	Matches m;
 	m.read(json);
 
-	Heap<Player> goal_rank;
+	Heap<Player> goal_rank(new MyGreater<Player>);
 	for (auto& match : m.v) {
 		for (auto& event : match.home_events) {
 			if (event.type == "goal") {
@@ -36,11 +37,11 @@ int main() {
 				if ((p_player = goal_rank.find(tmp)) != nullptr) {
 					// If player exists in the goal_rank
 					p_player->goal++;
+				} else {
+					tmp.country = match.home_team.country;
+					tmp.goal++;
+					goal_rank.push(tmp);
 				}
-
-				tmp.country = match.home_team.country;
-				tmp.goal++;
-				goal_rank.push(tmp);
 			}
 		}
 		for (auto& event : match.away_events) {
@@ -51,15 +52,16 @@ int main() {
 				if ((p_player = goal_rank.find(tmp)) != nullptr) {
 					// If player exists in the goal_rank
 					p_player->goal++;
+				} else {
+					tmp.country = match.away_team.country;
+					tmp.goal++;
+					goal_rank.push(tmp);
 				}
-
-				tmp.country = match.away_team.country;
-				tmp.goal++;
-				goal_rank.push(tmp);
 			}
 		}
 	}
-	for (int i = 0; i < goal_rank.size(); ++i) {
+	int rank_size = goal_rank.size();
+	for (int i = 0; i < rank_size; i++) {
 		cout << goal_rank.top().name;
 		cout << ": ";
 		cout << goal_rank.top().goal << endl;
