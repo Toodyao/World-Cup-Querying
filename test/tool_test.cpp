@@ -21,6 +21,10 @@ TEST(tool_test, time_test) {
 	MyTime t3(s3);
 	EXPECT_EQ("Thu Jun 14 16:00:00 2018\n", t3.get_string());
 	EXPECT_EQ(60*60, t3.seconds());
+
+	t3.set_time("2018-06-14T15:00:01Z");
+	EXPECT_EQ("Thu Jun 14 15:00:01 2018\n", t3.get_string());
+	EXPECT_EQ(1, t3.seconds());
 }
 
 TEST(tool_test, json_parse_test) {
@@ -57,10 +61,14 @@ TEST(tool_test, json_read_data) {
 	EXPECT_EQ(m.away_team.country, "Saudi Arabia");
 	EXPECT_EQ(m.home_events.at(1).type, "substitution-in");
 	EXPECT_EQ(m.away_events.at(1).type, "substitution-out");
+	EXPECT_EQ(m.home_events.at(1).time, 24);
+	EXPECT_EQ(m.away_events.at(1).time, 64);
 	EXPECT_EQ((int)m.home_events.size(), 12);
 	EXPECT_EQ((int)m.away_events.size(), 8);
 	EXPECT_EQ(m.winner, "Russia");
-	EXPECT_EQ(m.time, "2018-06-14T15:00:00Z");
+//	EXPECT_EQ(m.time, "2018-06-14T15:00:00Z");
+	EXPECT_EQ(m.time.get_string(), "Thu Jun 14 15:00:00 2018\n");
+	EXPECT_EQ(m.time.seconds(), 0);
 }
 
 TEST(tool_test, json_read_all) {

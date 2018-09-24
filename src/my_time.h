@@ -14,7 +14,10 @@ private:
 	double seconds_total;
 	int time_zone_diff;
 public:
+	MyTime();
 	MyTime(std::string& t);
+
+	void set_time(std::string t);
 
 	std::string get_string();
 	int seconds();

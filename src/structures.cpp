@@ -11,7 +11,10 @@ void TeamEvent::read(const Value& v) {
 	id     = v["id"].GetInt();
 	type   = v["type_of_event"].GetString();
 	player = v["player"].GetString();
-	time   = v["time"].GetString();
+
+	string tmp = v["time"].GetString();
+	tmp.erase(tmp.size()-1);
+	time = std::stoi(tmp);
 
 #ifdef DEBUG_READ_DATA_OUTPUT
 	cout << "{" << endl;
@@ -47,7 +50,7 @@ void Match::read(const std::string& json) {
 	home_team.read(d["home_team"]);
 	away_team.read(d["away_team"]);
 	winner = d["winner"].GetString();
-	time = d["datetime"].GetString();
+	time.set_time(d["datetime"].GetString());
 
 #ifdef DEBUG_READ_DATA_OUTPUT
 	cout << winner << endl;
@@ -60,14 +63,10 @@ void Match::read(const std::string& json) {
 }
 
 void Match::read(const rapidjson::Value& d) {
-//	Document d;
-//	d.Parse(json.c_str());
-
-//	d.HasMember("home_team");
 	home_team.read(d["home_team"]);
 	away_team.read(d["away_team"]);
 	winner = d["winner"].GetString();
-	time = d["datetime"].GetString();
+	time.set_time(d["datetime"].GetString());
 
 #ifdef DEBUG_READ_DATA_OUTPUT
 	cout << winner << endl;
