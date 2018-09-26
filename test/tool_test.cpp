@@ -28,6 +28,15 @@ TEST(tool_test, time_test) {
 	EXPECT_EQ(1, t3.seconds());
 }
 
+TEST(tool_test, prase_time_test) {
+	TeamEvent tv;
+	EXPECT_EQ(tv.parse_time("1'"), 1);
+	EXPECT_EQ(tv.parse_time("10'"), 10);
+	EXPECT_EQ(tv.parse_time("90'"), 90);
+	EXPECT_EQ(tv.parse_time("90'+7'"), 97);
+	EXPECT_EQ(tv.parse_time("104'"), 104);
+}
+
 TEST(tool_test, json_parse_test) {
 	using namespace rapidjson;
 	Document d;

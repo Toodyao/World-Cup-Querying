@@ -11,10 +11,7 @@ void TeamEvent::read(const Value& v) {
 	id     = v["id"].GetInt();
 	type   = v["type_of_event"].GetString();
 	player = v["player"].GetString();
-
-	string tmp = v["time"].GetString();
-	tmp.erase(tmp.size()-1);
-	time = std::stoi(tmp);
+	time   = parse_time(v["time"].GetString());
 
 #ifdef DEBUG_READ_DATA_OUTPUT
 	cout << "{" << endl;
@@ -24,6 +21,18 @@ void TeamEvent::read(const Value& v) {
 	cout << time << endl;
 	cout << "}" << endl;
 #endif
+}
+
+int TeamEvent::parse_time(string s) {
+	int time = 0;
+	if (s.size() <= 4 && s[s.size()-1] == '\'') { // If time <= 90
+		s.erase(s.size()-1);
+		time = std::stoi(s);
+	} else {
+		time = 90;
+		time += std::stoi(s.substr(4, 1));
+	}
+	return time;
 }
 
 void Team::read(const Value& v) {

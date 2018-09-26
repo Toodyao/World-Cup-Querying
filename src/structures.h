@@ -50,6 +50,7 @@ public:
 	string player;
 	int time;
 	void read(const rapidjson::Value& v);
+	int parse_time(string s);
 };
 
 class Team {
