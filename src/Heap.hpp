@@ -10,12 +10,12 @@ using std::vector;
 template <typename T>
 class Heap {
 private:
-	vector<T> v;
 	Compare<T> *cmp;
 	int heap_size;
 	void percolate_down(int i);
-
 public:
+
+	vector<T> v;
 	explicit Heap(Compare<T> *cmp_t = new MyLess<T>);
 	explicit Heap(int n, Compare<T> *cmp_t = new MyLess<T>);
 	explicit Heap(vector<T> a, Compare<T> *cmp_t = new MyLess<T>);
@@ -26,7 +26,9 @@ public:
 	T top();
 	void push(T x);
 	void pop();
-	T* find(T x);
+	int find(T x);
+	void swap_up(int index);
+
 
 };
 
@@ -143,11 +145,22 @@ void Heap<T>::percolate_down(int i) {
 }
 
 template<typename T>
-T* Heap<T>::find(T x) { // TODO: Rewrite use bst
+int Heap<T>::find(T x) { // TODO: Rewrite use bst or binary search
 	for (int i = 0; i < v.size(); ++i)
 		if (v[i] == x)
-			return &v[i];
-	return nullptr;
+			return i;
+	return -1;
+}
+
+template<typename T>
+void Heap<T>::swap_up(int index) {
+	int i = index;
+	T x = v[i];
+	while (i > 0 && (*cmp)(x, v[(i-1)/2])) { // swap up
+		v[i] = v[(i-1)/2];
+		i = (i-1)/2;
+	}
+	v[i] = x;
 }
 
 #endif //DS_TREE_HEAP_HPP

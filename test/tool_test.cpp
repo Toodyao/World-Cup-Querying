@@ -4,6 +4,7 @@
 #include "my_time.h"
 #include "rapidjson/document.h"
 #include "structures.h"
+#include "heap.hpp"
 using namespace std;
 
 TEST(tool_test, time_test) {
@@ -119,4 +120,31 @@ TEST(tool_test, Player_oprator) {
 	EXPECT_EQ(a == b, false);
 	a.name = "b";
 	EXPECT_EQ(a == b, true);
+}
+
+TEST(tool_test, heap_test) {
+	srand(0);
+	Heap<Player> h(new MyGreater<Player>);
+	int n = 10;
+	for (int i = 0; i < n; i++) {
+		Player a;
+		a.goal = rand() % 100;
+		a.name = to_string(rand()%1000000);
+		h.push(a);
+	}
+	Player a;
+	a.goal = 5;
+	h.push(a);
+//	n = h.size();
+//	for (int i = n - 1; i >= 0; i--) {
+//		Player tmp = h.top();
+//		EXPECT_EQ(i, tmp.goal);
+//		h.pop();
+//	}
+	n = h.size();
+	for (int i = n - 1; i >= 0; i--) {
+		Player tmp = h.top();
+		cout << tmp.goal << endl;
+		h.pop();
+	}
 }
