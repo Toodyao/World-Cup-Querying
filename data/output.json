@@ -7956,12 +7956,6 @@
         "time":"57'"
       },
       {
-        "id":1017,
-        "type_of_event":"goal-penalty",
-        "player":"Harry KANE",
-        "time":"58'"
-      },
-      {
         "id":1022,
         "type_of_event":"yellow-card",
         "player":"Jesse LINGARD",
@@ -9114,12 +9108,6 @@
         "type_of_event":"goal-penalty",
         "player":"Antoine GRIEZMANN",
         "time":"38'"
-      },
-      {
-        "id":1181,
-        "type_of_event":"goal-penalty",
-        "player":"Antoine GRIEZMANN",
-        "time":"39'"
       },
       {
         "id":1183,
