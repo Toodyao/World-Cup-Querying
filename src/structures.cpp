@@ -83,6 +83,9 @@ void Match::read(const rapidjson::Value& d) {
 #endif
 	read_events(home_events, d["home_team_events"]);
 	read_events(away_events, d["away_team_events"]);
+
+	clean_events(home_events);
+	clean_events(away_events);
 }
 
 void Match::read_events(vector<TeamEvent>& events, const rapidjson::Value& v) {
@@ -90,6 +93,24 @@ void Match::read_events(vector<TeamEvent>& events, const rapidjson::Value& v) {
 		TeamEvent temp;
 		temp.read(i);
 		events.push_back(temp);
+	}
+}
+
+void Match::clean_events(vector<TeamEvent>& events) { // TODO: Need test and need refactor(extract)
+	vector<TeamEvent>::iterator a, b; // a: front, b: back
+	a = events.begin();
+	b = events.begin(); ++b;
+	while (b != events.end()) {
+		if (((*a).type == "goal" || (*a).type == "goal-penalty") && ((*a).type == (*b).type) && ((*a).player == (*b).player) && ((*b).time - (*a).time) < 4) {
+			auto tmp = a;
+			events.erase(tmp);
+			if (b == events.end()) {
+				break;
+			}
+			a++; b++;
+		} else {
+			a++; b++;
+		}
 	}
 }
 
