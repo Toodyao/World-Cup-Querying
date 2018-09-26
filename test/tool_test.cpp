@@ -79,6 +79,11 @@ TEST(tool_test, json_read_data) {
 //	EXPECT_EQ(m.time, "2018-06-14T15:00:00Z");
 	EXPECT_EQ(m.time.get_string(), "Thu Jun 14 15:00:00 2018\n");
 	EXPECT_EQ(m.time.seconds(), 0);
+
+	FILE* fp = fopen("../../data/output.json", "r");
+	Matches mm;
+	mm.read(fp);
+	EXPECT_EQ(mm.size(), 64);
 }
 
 TEST(tool_test, json_read_all) {

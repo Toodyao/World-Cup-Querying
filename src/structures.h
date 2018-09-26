@@ -16,6 +16,7 @@ class Matches {
 public:
 	vector<Match> v;
 	void read(const string& json);
+	void read(FILE* fp);
 	size_t size();
 	Match& operator [] (int i);
 };

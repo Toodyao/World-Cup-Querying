@@ -2,6 +2,8 @@
 using namespace rapidjson;
 
 #include <iostream> // test used
+#include <rapidjson/filereadstream.h>
+
 using std::cout;
 using std::endl;
 
@@ -117,12 +119,31 @@ void Match::clean_events(vector<TeamEvent>& events) { // TODO: Need test and nee
 void Matches::read(const string& json) {
 	rapidjson::Document d;
 	d.Parse(json.c_str());
-	cout << d.GetType() << endl;
+//	cout << d.GetType() << endl;
 	assert(d.IsArray());
+	int debug_count = 0;
 	for (auto& i : d.GetArray()) {
 		Match temp;
 		temp.read(i);
 		v.push_back(temp);
+		debug_count++;
+	}
+}
+
+void Matches::read(FILE* fp) {
+	char readBuffer[65536];
+	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+	rapidjson::Document d;
+	d.ParseStream(is);
+	fclose(fp);
+
+	assert(d.IsArray());
+	int debug_count = 0;
+	for (auto& i : d.GetArray()) {
+		Match temp;
+		temp.read(i);
+		v.push_back(temp);
+		debug_count++;
 	}
 }
 

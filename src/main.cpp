@@ -17,15 +17,19 @@ void test(string s) {
 #define DEBUG_READ_DATA_OUTPUT
 
 int main() {
-	string json_path = "../../data/output-line.json";
-//	string json_path = "../../data/test_data_group";
-	ifstream json_file(json_path);
+//	string json_path = "../../data/output-line.json";
+////	string json_path = "../../data/test_data_group";
+//	ifstream json_file(json_path);
+//
+//	string json;
+//	getline(json_file, json);
+//
+//	Matches m;
+//	m.read(json);
 
-	string json;
-	getline(json_file, json);
-
+	FILE* fp = fopen("../../data/output.json", "r");
 	Matches m;
-	m.read(json);
+	m.read(fp);
 
 
 	// TODO: Heap problem, cannot auto sort
