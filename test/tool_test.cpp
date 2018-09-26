@@ -53,7 +53,7 @@ TEST(tool_test, read_file_test) {
 	EXPECT_EQ(json.size(), 2172);
 }
 
-TEST(tool_test, json_read_data) {
+TEST(tool_test, json_read_data_old_way) {
 	using namespace rapidjson;
 	using std::string;
 	string json_path = "../../data/test_data";
@@ -89,35 +89,18 @@ TEST(tool_test, json_read_data) {
 TEST(tool_test, json_read_all) {
 	using namespace rapidjson;
 	using std::string;
-	string json_path = "../../data/output-line.json";
-	ifstream json_file(json_path);
-
-	string json;
-	getline(json_file, json);
-
-	Document d;
-	d.Parse(json.c_str());
-
+	FILE* fp = fopen("../../data/output.json", "r");
 	Matches m;
-	m.read(json);
-
+	m.read(fp);
 	EXPECT_EQ(m.size(), 64);
 }
 
 TEST(tool_test, Matches_oprator) {
 	using namespace rapidjson;
 	using std::string;
-	string json_path = "../../data/output-line.json";
-	ifstream json_file(json_path);
-
-	string json;
-	getline(json_file, json);
-
-	Document d;
-	d.Parse(json.c_str());
-
+	FILE* fp = fopen("../../data/output.json", "r");
 	Matches m;
-	m.read(json);
+	m.read(fp);
 
 	EXPECT_EQ(m[63].winner, "France");
 }
@@ -139,26 +122,18 @@ TEST(tool_test, Player_oprator) {
 TEST(tool_test, heap_test) {
 	srand(0);
 	Heap<Player> h(new MyGreater<Player>);
-	int n = 10;
+	int n = 100;
 	for (int i = 0; i < n; i++) {
 		Player a;
-		a.goal = rand() % 100;
-		a.name = to_string(rand()%1000000);
+		a.goal = i;
+		a.name = to_string(i);
 		h.push(a);
 	}
-	Player a;
-	a.goal = 5;
-	h.push(a);
-//	n = h.size();
-//	for (int i = n - 1; i >= 0; i--) {
-//		Player tmp = h.top();
-//		EXPECT_EQ(i, tmp.goal);
-//		h.pop();
-//	}
 	n = h.size();
 	for (int i = n - 1; i >= 0; i--) {
 		Player tmp = h.top();
-		cout << tmp.goal << endl;
+		EXPECT_EQ(i, tmp.goal);
 		h.pop();
 	}
+
 }
