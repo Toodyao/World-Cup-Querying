@@ -31,16 +31,18 @@ int main() {
 	// TODO: Heap problem, cannot auto sort
 	// TODO: Data problem, Harry KANE's goal count wrong
 	Heap<Player> goal_rank(new MyGreater<Player>);
+	set<string> s;
 	for (auto& match : m.v) {
 		for (auto& event : match.home_events) {
 			if (event.type == "goal" || event.type == "goal-penalty") {
 				Player tmp;
 				tmp.name = event.player;
+//				s.insert(event.player);
 				int player_index = 0;
 				if ((player_index = goal_rank.find(tmp)) != -1) {
 					// If player exists in the goal_rank
 					goal_rank.v[player_index].goal++;
-					goal_rank.swap_up(player_index);
+					goal_rank.update_node(player_index);
 				} else {
 					tmp.country = match.home_team.country;
 					tmp.goal++;
@@ -52,11 +54,12 @@ int main() {
 			if (event.type == "goal" || event.type == "goal-penalty") {
 				Player tmp;
 				tmp.name = event.player;
+//				s.insert(event.player);
 				int player_index = 0;
 				if ((player_index = goal_rank.find(tmp)) != -1) {
 					// If player exists in the goal_rank
 					goal_rank.v[player_index].goal++;
-					goal_rank.swap_up(player_index);
+					goal_rank.update_node(player_index);
 				} else {
 					tmp.country = match.away_team.country;
 					tmp.goal++;
@@ -72,7 +75,7 @@ int main() {
 		cout << goal_rank.top().goal << endl;
 		goal_rank.pop();
 	}
-
+//	cout << s.size() << endl;
 
 	return 0;
 }

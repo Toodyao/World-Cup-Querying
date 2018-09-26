@@ -27,7 +27,7 @@ public:
 	void push(T x);
 	void pop();
 	int find(T x);
-	void swap_up(int index);
+	void update_node(int index);
 
 
 };
@@ -153,7 +153,7 @@ int Heap<T>::find(T x) { // TODO: Rewrite use bst or binary search
 }
 
 template<typename T>
-void Heap<T>::swap_up(int index) {
+void Heap<T>::update_node(int index) {
 	int i = index;
 	T x = v[i];
 	while (i > 0 && (*cmp)(x, v[(i-1)/2])) { // swap up

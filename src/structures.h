@@ -74,6 +74,7 @@ public:
 	void read(const std::string& json);
 	void read(const rapidjson::Value& d);
 	void read_events(vector<TeamEvent>& events, const rapidjson::Value& v);
+	void clean_events(vector<TeamEvent>& events);
 };
 
 
