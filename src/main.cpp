@@ -4,38 +4,48 @@
 #include <sstream>
 #include <cstdio>
 #include <set>
+#include <unordered_map>
 #include "structures.h"
 #include "my_time.h"
 #include "heap.hpp"
+#include "timeline.h"
+#include "demo.h"
+
 using namespace std;
 using namespace rapidjson;
 
-void test(string s) {
-	cout << s << endl;
-}
-
 #define DEBUG_READ_DATA_OUTPUT
 
+void show_goal_rank(const Matches& m);
+
+
 int main() {
-//	string json_path = "../../data/output-line.json";
-////	string json_path = "../../data/test_data_group";
-//	ifstream json_file(json_path);
-//
-//	string json;
-//	getline(json_file, json);
-//
+//	FILE* fp = fopen("../../data/output.json", "r");
 //	Matches m;
-//	m.read(json);
+//	m.read(fp);
+//
+//	Timeline timeline;
+//	timeline.set_curr("2018-06-14T15:00:00Z");
+//	m.get_match_info(timeline);
+//
+//	typedef std::unordered_map<string, Player> Hash;
+//	Hash players;
+//	Player p;
+//	players.insert(make_pair("1", p));
+	demo d;
+	d.init();
+	d.set_time("2018-07-15T21:22:00Z");
+	d.update_player();
+	d.update_goal_rank();
+	d.print_goal_rank();
+//	d.print_player();
+//	show_goal_rank(m);
 
-	FILE* fp = fopen("../../data/output.json", "r");
-	Matches m;
-	m.read(fp);
+	return 0;
+}
 
-
-	// TODO: Heap problem, cannot auto sort
-	// TODO: Data problem, Harry KANE's goal count wrong
+void show_goal_rank(const Matches& m) {
 	Heap<Player> goal_rank(new MyGreater<Player>);
-	set<string> s;
 	for (auto& match : m.v) {
 		for (auto& event : match.home_events) {
 			if (event.type == "goal" || event.type == "goal-penalty") {
@@ -73,13 +83,24 @@ int main() {
 		}
 	}
 	int rank_size = goal_rank.size();
+	vector<Player> v;
+	int goal_count[7] = {0};
 	for (int i = 0; i < rank_size; i++) {
-		cout << goal_rank.top().name;
-		cout << ": ";
-		cout << goal_rank.top().goal << endl;
+		goal_count[goal_rank.top().goal]++;
+		v.push_back(goal_rank.top());
 		goal_rank.pop();
 	}
-//	cout << s.size() << endl;
 
-	return 0;
+	assert(goal_count[2] == 13);
+	assert(goal_count[3] == 7);
+	assert(goal_count[4] == 5);
+	assert(goal_count[5] == 0);
+	assert(goal_count[6] == 1);
+
+	for (auto& i : v) {
+		cout << i.name;
+		cout << ": ";
+		cout << i.goal << endl;
+	}
+
 }

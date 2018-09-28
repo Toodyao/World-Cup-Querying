@@ -19,9 +19,8 @@ public:
 	vector<Match> v;
 	void read(const string& json);
 	void read(FILE* fp);
-	int get_match_index(Timeline timeline);
+	int get_match_index_till(Timeline timeline);
 	Match get_match_info(Timeline timeline);
-	Match get_match_events(Timeline timeline);
 	size_t size();
 	Match& operator [] (int i);
 };
@@ -39,10 +38,16 @@ public:
 	int goal_own;
 	Player ();
 	bool operator > (const Player& a) const {
-		return this->goal > a.goal;
+		if (this->goal == a.goal)
+			return this->name < a.name; // Notice: name is different order
+		else
+			return this->goal > a.goal;
 	}
 	bool operator < (const Player& a) const {
-		return this->goal < a.goal;
+		if (this->goal == a.goal)
+			return this->name > a.name; // Notice: name is different order
+		else
+			return this->goal < a.goal;
 	}
 	bool operator == (const Player& a) const {
 		return this->name == a.name;
