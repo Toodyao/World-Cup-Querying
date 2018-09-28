@@ -35,7 +35,16 @@ MyTime::MyTime(std::string& t) {
 }
 
 std::string MyTime::get_string() {
-	std::string ret(asctime(&time_raw));
+	char buf[30];
+	sprintf(buf, "%d-%02d-%02dT%02d:%02d:%02dZ",
+			year(),
+			mon(),
+			day(),
+			hour(),
+			min(),
+			sec()
+	);
+	std::string ret(buf);
 	return ret;
 }
 
@@ -53,4 +62,28 @@ void MyTime::set_time(std::string t) {
 	time_value = mktime(&time_raw);
 	zero_value = mktime(&zero_time);
 	seconds_total = difftime(time_value, zero_value);
+}
+
+int MyTime::year() {
+	return time_raw.tm_year + 1900;
+}
+
+int MyTime::mon() {
+	return time_raw.tm_mon + 1;
+}
+
+int MyTime::day() {
+	return time_raw.tm_mday;
+}
+
+int MyTime::hour() {
+	return time_raw.tm_hour;
+}
+
+int MyTime::min() {
+	return time_raw.tm_min;
+}
+
+int MyTime::sec() {
+	return time_raw.tm_sec;
 }

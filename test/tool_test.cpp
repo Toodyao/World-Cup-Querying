@@ -11,21 +11,21 @@ using namespace std;
 TEST(tool_test, time_test) {
 	string s("2018-06-14T15:00:00Z");
 	MyTime t(s);
-	EXPECT_EQ("Thu Jun 14 15:00:00 2018\n", t.get_string());
+	EXPECT_EQ("2018-06-14T15:00:00Z", t.get_string());
 	EXPECT_EQ(0, t.seconds());
 
 	string s2("2018-06-14T15:00:01Z");
 	MyTime t2(s2);
-	EXPECT_EQ("Thu Jun 14 15:00:01 2018\n", t2.get_string());
+	EXPECT_EQ("2018-06-14T15:00:01Z", t2.get_string());
 	EXPECT_EQ(1, t2.seconds());
 
 	string s3("2018-06-14T16:00:00Z");
 	MyTime t3(s3);
-	EXPECT_EQ("Thu Jun 14 16:00:00 2018\n", t3.get_string());
+	EXPECT_EQ("2018-06-14T16:00:00Z", t3.get_string());
 	EXPECT_EQ(60*60, t3.seconds());
 
 	t3.set_time("2018-06-14T15:00:01Z");
-	EXPECT_EQ("Thu Jun 14 15:00:01 2018\n", t3.get_string());
+	EXPECT_EQ("2018-06-14T15:00:01Z", t3.get_string());
 	EXPECT_EQ(1, t3.seconds());
 }
 
@@ -96,6 +96,22 @@ TEST(tool_test, json_read_all) {
 	EXPECT_EQ(m.size(), 64);
 }
 
+TEST(tool_test, Match_valid_test) {
+	Match m;
+	EXPECT_EQ(m.valid, false);
+
+	string json_path = "../../data/test_data";
+	ifstream json_file(json_path);
+	string json;
+	getline(json_file, json);
+
+	Match m2;
+	m2.read(json);
+	EXPECT_EQ(m2.valid, true);
+	m = m2;
+	EXPECT_EQ(m.valid, true);
+}
+
 TEST(tool_test, Matches_oprator) {
 	using namespace rapidjson;
 	using std::string;
@@ -105,7 +121,6 @@ TEST(tool_test, Matches_oprator) {
 
 	EXPECT_EQ(m[63].winner, "France");
 }
-
 
 TEST(tool_test, Player_oprator) {
 	Player a, b;
@@ -142,9 +157,9 @@ TEST(tool_test, timeline_test) {
 	Timeline t;
 	string time_test = "2018-06-14T15:00:00Z";
 	t.set_curr(time_test);
-	EXPECT_EQ(t.get_curr(), 0);
+	EXPECT_EQ(t.curr(), 0);
 	time_test = "2018-06-14T16:00:00Z";
 	t.set_curr(time_test);
-	EXPECT_EQ(t.get_curr(), 60*60);
-	EXPECT_EQ(t.get_prev(), 0);
+	EXPECT_EQ(t.curr(), 60*60);
+	EXPECT_EQ(t.prev(), 0);
 }

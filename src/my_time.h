@@ -15,12 +15,18 @@ private:
 	int time_zone_diff;
 public:
 	MyTime();
-	MyTime(std::string& t);
+	explicit MyTime(std::string& t);
 
 	void set_time(std::string t);
 
 	std::string get_string();
 	int seconds();
+	int year();
+	int mon();
+	int day();
+	int hour();
+	int min();
+	int sec();
 };
 
 #endif //WORLD_CUP_QUERYING_MY_TIME_H
