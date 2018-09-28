@@ -5,6 +5,7 @@
 #include "rapidjson/document.h"
 #include "structures.h"
 #include "heap.hpp"
+#include "timeline.h"
 using namespace std;
 
 TEST(tool_test, time_test) {
@@ -135,5 +136,15 @@ TEST(tool_test, heap_test) {
 		EXPECT_EQ(i, tmp.goal);
 		h.pop();
 	}
+}
 
+TEST(tool_test, timeline_test) {
+	Timeline t;
+	string time_test = "2018-06-14T15:00:00Z";
+	t.set_curr(time_test);
+	EXPECT_EQ(t.get_curr(), 0);
+	time_test = "2018-06-14T16:00:00Z";
+	t.set_curr(time_test);
+	EXPECT_EQ(t.get_curr(), 60*60);
+	EXPECT_EQ(t.get_prev(), 0);
 }
