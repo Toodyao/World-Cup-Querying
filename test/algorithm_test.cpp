@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <rank.hpp>
 #include "structures.h"
 #include "heap.hpp"
 using namespace std;
@@ -21,5 +22,17 @@ TEST(tool_test, heap_test) {
 		Player tmp = h.top();
 		EXPECT_EQ(i, tmp.goal);
 		h.pop();
+	}
+}
+
+TEST(tool_test, rank_test) {
+	Rank<int> r;
+	int n = 10;
+	for (int i = 0 ; i < n; i++) {
+		r.add(i);
+	}
+	r.update();
+	for (int i = 0; i < n; i++) {
+		EXPECT_EQ(r[i], 9-i);
 	}
 }
