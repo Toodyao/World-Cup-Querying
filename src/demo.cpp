@@ -23,73 +23,15 @@ void demo::update_goal_rank() {
 void demo::update_player() {
 	int index = matches.get_match_index_till(timeline);
 	for (int i = 0; i < index; i++) {
-		vector<TeamEvent> tv = matches[i].home_events;
-		for (int j = 0; j < tv.size(); j++) {
-			if (tv[j].type == "goal" || tv[j].type == "goal-penalty") {
-				if (players.count(tv[j].player) == 0) { // If not exits, add new.
-					Player tmp;
-					tmp.country = matches[i].home_team.country;
-					tmp.name = tv[j].player;
-					tmp.goal = 1;
-					std::pair<string, Player> p(tv[j].player, tmp);
-					players.insert(p);
-				} else {
-					auto& it = players[tv[j].player];
-					it.goal++;
-				}
-			}
-		}
-		tv = matches[i].away_events;
-		for (int j = 0; j < tv.size(); j++) {
-			if (tv[j].type == "goal" || tv[j].type == "goal-penalty") {
-				if (players.count(tv[j].player) == 0) { // If not exits, add new.
-					Player tmp;
-					tmp.country = matches[i].away_team.country;
-					tmp.name = tv[j].player;
-					tmp.goal = 1;
-					std::pair<string, Player> p(tv[j].player, tmp);
-					players.insert(p);
-				} else {
-					auto& it = players[tv[j].player];
-					it.goal++;
-				}
-			}
-		}
+		count_goal(i, matches[i].home_events, matches[i].home_team); // Home team goal till timeline.
+		count_goal(i, matches[i].away_events, matches[i].away_team); // Away team goal till timeline.
 	}
+
 	int end_time_point = timeline.curr() - matches[index].time.seconds();
 	assert(end_time_point > 0);
-	vector<TeamEvent> tv = matches[index].home_events;
-	for (int i = 0; i < tv.size() && tv[i].time < end_time_point; i++) {
-		if (tv[i].type == "goal" || tv[i].type == "goal-penalty") {
-			if (players.count(tv[i].player) == 0) { // If not exits, add new.
-				Player tmp;
-				tmp.country = matches[index].home_team.country;
-				tmp.name = tv[i].player;
-				tmp.goal = 1;
-				std::pair<string, Player> p(tv[i].player, tmp);
-				players.insert(p);
-			} else {
-				auto& it = players[tv[i].player];
-				it.goal++;
-			}
-		}
-	}
-	tv = matches[index].away_events;
-	for (int i = 0; i < tv.size() && tv[i].time < end_time_point; i++) {
-		if (tv[i].type == "goal" || tv[i].type == "goal-penalty") {
-			if (players.count(tv[i].player) == 0) { // If not exits, add new.
-				Player tmp;
-				tmp.country = matches[index].away_team.country;
-				tmp.name = tv[i].player;
-				tmp.goal = 1;
-				std::pair<string, Player> p(tv[i].player, tmp);
-				players.insert(p);
-			} else {
-				auto& it = players[tv[i].player];
-				it.goal++;
-			}
-		}
-	}
+
+	count_goal(index, matches[index].home_events, matches[index].home_team); // Home team goal (on-going).
+	count_goal(index, matches[index].away_events, matches[index].away_team); // Away team goal (on-going).
 }
 
 void demo::set_time(const string& s) {
@@ -109,5 +51,23 @@ void demo::print_goal_rank() {
 		std::cout << goal_rank[i].name;
 		std::cout << ": ";
 		std::cout << goal_rank[i].goal << std::endl;
+	}
+}
+
+void demo::count_goal(int i, vector<TeamEvent> tv, Team team) {
+	for (int j = 0; j < tv.size(); j++) {
+		if (tv[j].type == "goal" || tv[j].type == "goal-penalty") {
+			if (players.count(tv[j].player) == 0) { // If not exits, add new.
+				Player tmp;
+				tmp.country = team.country;
+				tmp.name = tv[j].player;
+				tmp.goal = 1;
+				std::pair<string, Player> p(tv[j].player, tmp);
+				players.insert(p);
+			} else {
+				auto& it = players[tv[j].player];
+				it.goal++;
+			}
+		}
 	}
 }

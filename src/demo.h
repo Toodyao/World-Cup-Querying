@@ -22,6 +22,7 @@ public:
 	void set_time(const string& s);
 	void print_player();
 	void print_goal_rank();
+	void count_goal(int i, vector<TeamEvent> tv, Team team);
 };
 
 
