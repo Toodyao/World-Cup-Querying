@@ -1,5 +1,4 @@
 #include "gtest/gtest.h"
-#include "rapidjson/document.h"
 
 TEST(test, successed_test) {
 	EXPECT_EQ(1, 1);
