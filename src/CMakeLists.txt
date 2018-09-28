@@ -9,7 +9,13 @@ add_library(src_files
         my_time.h
         my_time.cpp
         timeline.h
-        timeline.cpp)
+        timeline.cpp
+        backend.cpp
+        backend.h
+        rank.hpp
+        demo.cpp
+        demo.h
+        hash.hpp)
 
 add_executable(project_main
         main.cpp

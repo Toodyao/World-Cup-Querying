@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 3.10)
 project (World-Cup-Querying)
 
+set (CMAKE_CXX_STANDARD 11)
+
 # Add Google Test
 set(google_test_dir third_party/googletest)
 add_subdirectory(${google_test_dir})
