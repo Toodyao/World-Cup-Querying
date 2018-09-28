@@ -178,7 +178,7 @@ int Matches::get_match_index(Timeline timeline) {
 	int ret = -1;
 	for (int i = 0; i < v.size(); i++) {
 		if (timeline.curr() >= v[i].time.seconds()
-				&& timeline.curr() - v[i].time.seconds() < 130)
+				&& timeline.curr() - v[i].time.seconds() < 130*60)
 			ret = i;
 	}
 	return ret;
