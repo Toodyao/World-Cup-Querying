@@ -11,16 +11,16 @@ bool Timeline::changed() {
 }
 
 void Timeline::set_curr(std::string s) {
-	prev_time = curr_time;
+	prev_time = curr_time; // Consider high frequency use situation, need refactor.
 	MyTime t(s);
 	curr_time = t.seconds();
 }
 
-int Timeline::get_curr() {
+int Timeline::curr() {
 	return curr_time;
 }
 
-int Timeline::get_prev() {
+int Timeline::prev() {
 	return prev_time;
 }
 

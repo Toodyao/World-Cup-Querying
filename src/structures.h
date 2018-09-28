@@ -7,6 +7,8 @@
 #include <vector>
 #include <rapidjson/document.h>
 #include "my_time.h"
+#include "timeline.h"
+
 using std::string;
 using std::vector;
 
@@ -17,6 +19,9 @@ public:
 	vector<Match> v;
 	void read(const string& json);
 	void read(FILE* fp);
+	int get_match_index(Timeline timeline);
+	Match get_match_info(Timeline timeline);
+	Match get_match_events(Timeline timeline);
 	size_t size();
 	Match& operator [] (int i);
 };
@@ -72,10 +77,14 @@ public:
 	vector<TeamEvent> away_events;
 	string winner; // 'True' means winner is home team
 	MyTime time;
+	bool valid; // Mark whether the object is valid.
 	void read(const std::string& json);
 	void read(const rapidjson::Value& d);
 	void read_events(vector<TeamEvent>& events, const rapidjson::Value& v);
 	void clean_events(vector<TeamEvent>& events);
+	Match() {
+		valid = false;
+	}
 };
 
 

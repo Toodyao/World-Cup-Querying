@@ -71,6 +71,10 @@ void Match::read(const std::string& json) {
 	read_events(home_events, d["home_team_events"]);
 	read_events(away_events, d["away_team_events"]);
 
+	clean_events(home_events);
+	clean_events(away_events);
+
+	valid = true;
 }
 
 void Match::read(const rapidjson::Value& d) {
@@ -88,6 +92,8 @@ void Match::read(const rapidjson::Value& d) {
 
 	clean_events(home_events);
 	clean_events(away_events);
+
+	valid = true;
 }
 
 void Match::read_events(vector<TeamEvent>& events, const rapidjson::Value& v) {
@@ -153,6 +159,29 @@ size_t Matches::size() {
 
 Match& Matches::operator[](int i) {
 	return v[i];
+}
+
+Match Matches::get_match_info(Timeline timeline) {
+	// If no match at timeline, returns a default Match(marked invalid)
+	Match ret;
+	int index = get_match_index(timeline);
+
+	if (index != -1)
+		ret = v[index];
+
+	return ret;
+}
+
+int Matches::get_match_index(Timeline timeline) {
+	// Find match index according to the timeline.
+	// If no match at that timeline, return -1.
+	int ret = -1;
+	for (int i = 0; i < v.size(); i++) {
+		if (timeline.curr() >= v[i].time.seconds()
+				&& timeline.curr() - v[i].time.seconds() < 130)
+			ret = i;
+	}
+	return ret;
 }
 
 Player::Player() {

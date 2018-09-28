@@ -11,8 +11,8 @@ public:
 	Timeline();
 	bool changed();
 	void set_curr(std::string s);
-	int get_curr();
-	int get_prev();
+	int curr();
+	int prev();
 };
 
 #endif //WORLD_CUP_QUERYING_TIMELINE_H
