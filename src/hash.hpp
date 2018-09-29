@@ -15,17 +15,19 @@ private:
 		bool empty;
 		inner_value() {key = -1; empty = true;}
 	};
-	vector<vector<inner_value> > v;
 	std::hash<std::string> str_hash;
-	std::hash<int> int_hash;
+	std::hash<int>         int_hash;
 	const int MOD = 331;
 public:
+	vector<vector<inner_value> > v;
 	Hash();
 	Hash(unsigned long n);
 	size_t get_hash(std::string s);
 	size_t get_hash(int n);
 	void insert(K key, V value);
 	V& find(K key);
+	V* find_ptr(K key);
+//	size_t count(K key);
 };
 
 template<typename K, typename V>
@@ -66,6 +68,17 @@ V& Hash<K,V>::find(K key) {
 		auto& list = v[hash_code];
 		if (list[i].key == key) {
 			return list[i].value;
+		}
+	}
+}
+
+template<typename K, typename V>
+V* Hash<K, V>::find_ptr(K key) {
+	size_t hash_code = get_hash(key);
+	for (int i = 0; i < v[hash_code].size(); i++) {
+		auto& list = v[hash_code];
+		if (list[i].key == key) {
+			return &(list[i].value);
 		}
 	}
 }

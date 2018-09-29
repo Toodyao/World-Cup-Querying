@@ -10,6 +10,7 @@
 #include "heap.hpp"
 #include "timeline.h"
 #include "demo.h"
+#include "hash.hpp"
 
 using namespace std;
 using namespace rapidjson;
@@ -34,12 +35,15 @@ int main() {
 //	players.insert(make_pair("1", p));
 	demo d;
 	d.init();
-	d.set_time("2018-07-15T21:22:00Z");
+	d.set_time("2018-07-16T00:22:00Z");
 	d.update_player();
 	d.update_goal_rank();
 	d.print_goal_rank();
 //	d.print_player();
 //	show_goal_rank(m);
+
+	std::hash<std::string> h;
+	h("test");
 
 	return 0;
 }

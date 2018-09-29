@@ -57,6 +57,8 @@ TEST(tool_test, hash_test) {
 	p.country = "US";
 	Hash<string, Player> hh;
 	hh.insert(p.name, p);
-	Player tmp = hh.find(p.name);
-	EXPECT_EQ(tmp.name, "Mike");
+	Player* tmp = hh.find_ptr(p.name);
+	EXPECT_EQ(tmp->name, "Mike");
+	tmp = hh.find_ptr("not exists");
+	EXPECT_EQ(tmp, nullptr);
 }

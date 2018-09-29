@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include "structures.h"
 #include "rank.hpp"
+#include "hash.hpp"
 
 using std::string;
 
@@ -13,8 +14,8 @@ public:
 	Matches matches;
 	Timeline timeline;
 	Rank<Player> goal_rank;
-	typedef std::unordered_map<string, Player> Hash;
-	Hash players;
+//	typedef std::unordered_map<string, Player> Hash;
+	Hash<string, Player> players;
 	void init();
 	void update();
 	void update_goal_rank();

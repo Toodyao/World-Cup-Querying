@@ -45,29 +45,6 @@ TEST(tool_test, Match_valid_test) {
 	EXPECT_EQ(m.valid, true);
 }
 
-TEST(tool_test, get_match_info_test) {
-	FILE* fp = fopen("../../data/output.json", "r");
-	Matches m;
-	m.read(fp);
-
-	Timeline timeline;
-	Match match;
-
-	timeline.set_curr("2018-06-14T22:00:00Z");
-	match = m.get_match_info(timeline);
-	EXPECT_EQ(match.valid, false);
-
-
-	timeline.set_curr("2018-06-14T15:00:00Z");
-	match = m.get_match_info(timeline);
-	EXPECT_EQ(match.valid, true);
-	EXPECT_EQ(match.home_team.country, "Russia");
-
-	timeline.set_curr("2018-07-15T15:01:00Z");
-	match = m.get_match_info(timeline);
-	EXPECT_EQ(match.valid, true);
-}
-
 TEST(tool_test, get_match_index_test) {
 	FILE* fp = fopen("../../data/output.json", "r");
 	Matches m;
@@ -78,14 +55,18 @@ TEST(tool_test, get_match_index_test) {
 	int index;
 
 	timeline.set_curr("2018-06-14T22:00:00Z");
-	index = m.get_match_index_till(timeline);
+	index = m.get_current_match_info(timeline);
 	EXPECT_EQ(index, -1);
 
 	timeline.set_curr("2018-06-14T16:00:00Z");
-	index = m.get_match_index_till(timeline);
+	index = m.get_current_match_info(timeline);
 	EXPECT_EQ(index, 0);
 
 	timeline.set_curr("2018-07-15T15:01:00Z");
-	index = m.get_match_index_till(timeline);
+	index = m.get_current_match_info(timeline);
 	EXPECT_EQ(index, 63);
+
+	timeline.set_curr("2018-06-14T22:00:00Z");
+	index = m.get_match_index_till(timeline);
+	EXPECT_EQ(index, 0);
 }
