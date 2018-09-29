@@ -161,26 +161,23 @@ Match& Matches::operator[](int i) {
 	return v[i];
 }
 
-Match Matches::get_match_info(Timeline timeline) {
-	// TODO: get match status, precisely. Returns Match or Matches?
-	// Returns Match status at timeline.
-	// If no match at timeline, returns a default Match(marked invalid)
-	Match ret;
-	int index = get_match_index_till(timeline);
-
-	if (index != -1)
-		ret = v[index];
-
-	return ret;
-}
-
 int Matches::get_match_index_till(Timeline timeline) {
 	// Find match index according to the timeline.
-	// If no match at that timeline, return -1.
 	int ret = -1;
 	for (int i = 0; i < v.size(); i++) {
 		if (timeline.curr() >= v[i].time.seconds())
 //				&& timeline.curr() - v[i].time.seconds() < 130*60)
+			ret = i;
+	}
+	return ret;
+}
+
+int Matches::get_current_match_info(Timeline timeline) {
+	// If no match at that timeline, return -1.
+	int ret = -1;
+	for (int i = 0; i < v.size(); i++) {
+		if (timeline.curr() >= v[i].time.seconds()
+				&& timeline.curr() - v[i].time.seconds() < 130*60)
 			ret = i;
 	}
 	return ret;

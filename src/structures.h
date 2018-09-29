@@ -20,7 +20,7 @@ public:
 	void read(const string& json);
 	void read(FILE* fp);
 	int get_match_index_till(Timeline timeline);
-	Match get_match_info(Timeline timeline);
+	int get_current_match_info(Timeline timeline);
 	size_t size();
 	Match& operator [] (int i);
 };
