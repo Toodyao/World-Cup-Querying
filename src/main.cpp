@@ -33,12 +33,10 @@ int main() {
 	d.update_player();
 	d.update_goal_rank();
 	d.print_goal_rank();
-	cout << d.players.hash_conflict();
+	cout << d.players.hash_conflict() << endl;
+	d.goal_rank_test();
 //	d.print_player();
 //	show_goal_rank(m);
-
-
-
 	return 0;
 }
 

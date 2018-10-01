@@ -2,6 +2,7 @@
 #include "structures.h"
 #include "rank.hpp"
 #include <iostream>
+using namespace std;
 
 void demo::init() {
 	FILE* fp = fopen("../../data/output.json", "r");
@@ -78,4 +79,19 @@ void demo::count_goal(int i, vector<TeamEvent> tv, Team team) {
 			}
 		}
 	}
+}
+
+void demo::goal_rank_test() {
+	int goal_count[7] = {0};
+	for (int i = 0; i < goal_rank.size(); i++) {
+		goal_count[goal_rank[i].goal]++;
+	}
+
+	assert(goal_count[2] == 13);
+	assert(goal_count[3] == 7);
+	assert(goal_count[4] == 5);
+	assert(goal_count[5] == 0);
+	assert(goal_count[6] == 1);
+
+	cout << "goal rank correct" << endl;
 }

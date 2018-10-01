@@ -3,7 +3,6 @@ project(Main)
 
 add_library(src_files
         structures.h
-        structures.cpp
         compare.hpp
         heap.hpp
         my_time.h
@@ -16,7 +15,12 @@ add_library(src_files
         demo.cpp
         demo.h
         hash.hpp
-        my_vector.hpp)
+        my_vector.hpp
+        player.cpp
+        team.cpp
+        team_event.cpp
+        match.cpp
+        matches.cpp)
 
 add_executable(project_main
         main.cpp

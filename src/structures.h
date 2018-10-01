@@ -3,11 +3,20 @@
 #ifndef WORLD_CUP_QUERYING_STRUCTURES_H
 #define WORLD_CUP_QUERYING_STRUCTURES_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <rapidjson/document.h>
+#include <rapidjson/filereadstream.h>
 #include "my_time.h"
 #include "timeline.h"
+
+//#define DEBUG_READ_DATA_OUTPUT
+
+#ifdef DEBUG_READ_DATA_OUTPUT
+using std::cout;
+using std::endl;
+#endif
 
 using std::string;
 using std::vector;
