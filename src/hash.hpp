@@ -6,6 +6,7 @@
 #include <functional>
 using std::vector;
 
+
 template <typename K, typename V> // Key and Value
 class Hash {
 private:
@@ -21,12 +22,14 @@ private:
 public:
 	vector<vector<inner_value> > v;
 	Hash();
-	Hash(unsigned long n);
+	explicit Hash(unsigned long n);
 	size_t get_hash(std::string s);
 	size_t get_hash(int n);
 	void insert(K key, V value);
 	V& find(K key);
 	V* find_ptr(K key);
+	int hash_conflict();
+	void clear();
 //	size_t count(K key);
 };
 
@@ -81,6 +84,21 @@ V* Hash<K, V>::find_ptr(K key) {
 			return &(list[i].value);
 		}
 	}
+}
+
+template<typename K, typename V>
+int Hash<K, V>::hash_conflict() {
+	int count = 0;
+	for (int i = 0; i < v.size(); i++)
+		if (v[i].size() > 1)
+			count++;
+	return count;
+}
+
+template<typename K, typename V>
+void Hash<K, V>::clear() {
+	v.clear();
+	v.resize((unsigned long) MOD);
 }
 
 

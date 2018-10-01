@@ -5,7 +5,7 @@
 
 void demo::init() {
 	FILE* fp = fopen("../../data/output.json", "r");
-//	FILE* fp = fopen("../../data/test_data_group", "r");
+//	FILE* fp = fopen("../../data/test_data_group.json", "r");
 	matches.read(fp);
 
 	timeline.set_curr("2018-06-14T15:00:00Z");
@@ -28,6 +28,7 @@ void demo::update_goal_rank() {
 }
 
 void demo::update_player() {
+	players.clear();
 	int index = matches.get_match_index_till(timeline);
 	for (int i = 0; i < index; i++) {
 		count_goal(i, matches[i].home_events, matches[i].home_team); // Home team goal till timeline.
