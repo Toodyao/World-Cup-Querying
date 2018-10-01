@@ -9,6 +9,34 @@ using std::endl;
 
 //#define DEBUG_READ_DATA_OUTPUT
 
+Player::Player() {
+	name = "";
+	country = "";
+	goal = 0;
+	substitution_in = 0;
+	substitution_out = 0;
+	yellow_card = 0;
+	red_card = 0;
+	goal_penalty = 0;
+	goal_own = 0;
+}
+
+void Team::read(const Value& v) {
+	country   = v["country"].GetString();
+	code      = v["code"].GetString();
+	goals     = v["goals"].GetInt();
+	penalties = v["penalties"].GetInt();
+
+#ifdef DEBUG_READ_DATA_OUTPUT
+	//	cout << "{" << endl;
+	cout << country << endl;
+	cout << code << endl;
+	cout << goals << endl;
+	cout << penalties << endl;
+//	cout << "}" << endl;
+#endif
+}
+
 void TeamEvent::read(const Value& v) {
 	id     = v["id"].GetInt();
 	type   = v["type_of_event"].GetString();
@@ -35,22 +63,6 @@ int TeamEvent::parse_time(string s) {
 		time += std::stoi(s.substr(4, 1));
 	}
 	return time;
-}
-
-void Team::read(const Value& v) {
-	country   = v["country"].GetString();
-	code      = v["code"].GetString();
-	goals     = v["goals"].GetInt();
-	penalties = v["penalties"].GetInt();
-
-#ifdef DEBUG_READ_DATA_OUTPUT
-//	cout << "{" << endl;
-	cout << country << endl;
-	cout << code << endl;
-	cout << goals << endl;
-	cout << penalties << endl;
-//	cout << "}" << endl;
-#endif
 }
 
 void Match::read(const std::string& json) {
@@ -181,16 +193,4 @@ int Matches::get_current_match_info(Timeline timeline) {
 			ret = i;
 	}
 	return ret;
-}
-
-Player::Player() {
-	name = "";
-	country = "";
-	goal = 0;
-	substitution_in = 0;
-	substitution_out = 0;
-	yellow_card = 0;
-	red_card = 0;
-	goal_penalty = 0;
-	goal_own = 0;
 }

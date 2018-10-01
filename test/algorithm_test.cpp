@@ -6,6 +6,7 @@
 #include <hash.hpp>
 #include "structures.h"
 #include "heap.hpp"
+#include "my_vector.hpp"
 using namespace std;
 
 TEST(tool_test, heap_test) {

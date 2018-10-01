@@ -12,19 +12,6 @@
 using std::string;
 using std::vector;
 
-class Match;
-
-class Matches {
-public:
-	vector<Match> v;
-	void read(const string& json);
-	void read(FILE* fp);
-	int get_match_index_till(Timeline timeline);
-	int get_current_match_info(Timeline timeline);
-	size_t size();
-	Match& operator [] (int i);
-};
-
 class Player {
 public:
 	string name;
@@ -54,6 +41,16 @@ public:
 	}
 };
 
+class Team {
+public:
+//	int id; // Don't know what is it
+	string country;
+	string code;
+	int goals;
+	int penalties;
+	void read(const rapidjson::Value& v);
+};
+
 class TeamEvent {
 public:
 	int id;
@@ -66,16 +63,6 @@ public:
 	bool operator == (const TeamEvent& a) const {
 		return this->id == a.id;
 	}
-};
-
-class Team {
-public:
-//	int id; // Don't know what is it
-	string country;
-	string code;
-	int goals;
-	int penalties;
-	void read(const rapidjson::Value& v);
 };
 
 class Match {
@@ -96,5 +83,15 @@ public:
 	}
 };
 
+class Matches {
+public:
+	vector<Match> v;
+	void read(const string& json);
+	void read(FILE* fp);
+	int get_match_index_till(Timeline timeline);
+	int get_current_match_info(Timeline timeline);
+	size_t size();
+	Match& operator [] (int i);
+};
 
 #endif //WORLD_CUP_QUERYING_STRUCTURES_H
