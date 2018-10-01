@@ -62,3 +62,26 @@ TEST(tool_test, hash_test) {
 	tmp = hh.find_ptr("not exists");
 	EXPECT_EQ(tmp, nullptr);
 }
+
+TEST(tool_test, my_vector_test) {
+	MyVector<int> v;
+	int n = 10;
+	for (int i = 0; i < n; i++) {
+		v.push_back(i);
+	}
+	EXPECT_EQ(v.size(), 10);
+	for (int i = 0; i < n; i++) {
+		EXPECT_EQ(v[i], i);
+	}
+
+	for (int i = 0; i < n; i+=2) {
+		v.erase(i);
+	}
+	EXPECT_EQ(v.size(), 5);
+	EXPECT_EQ(v[0], 1);
+	EXPECT_EQ(v[1], 3);
+	EXPECT_EQ(v[2], 5);
+	EXPECT_EQ(v[3], 7);
+	EXPECT_EQ(v[4], 9);
+
+}

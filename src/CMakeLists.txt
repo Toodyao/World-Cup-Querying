@@ -15,7 +15,8 @@ add_library(src_files
         rank.hpp
         demo.cpp
         demo.h
-        hash.hpp)
+        hash.hpp
+        my_vector.hpp)
 
 add_executable(project_main
         main.cpp

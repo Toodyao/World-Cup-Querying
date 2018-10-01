@@ -62,6 +62,10 @@ public:
 	int time;
 	void read(const rapidjson::Value& v);
 	int parse_time(string s);
+	~TeamEvent() {id = -2;}
+	bool operator == (const TeamEvent& a) const {
+		return this->id == a.id;
+	}
 };
 
 class Team {
