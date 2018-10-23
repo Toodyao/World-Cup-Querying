@@ -10,6 +10,12 @@ using std::vector;
 template <typename T>
 class Rank {
 public:
+	Rank() = default;
+
+	explicit Rank(int size) {
+		v.resize((unsigned long)(size));
+	}
+
 	vector<T> v;
 	int size();
 	void add(T x);

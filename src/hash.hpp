@@ -14,7 +14,7 @@ private:
 		V value;
 		K key;
 		bool empty;
-		inner_value() {key = -1; empty = true;}
+		inner_value() {empty = true;}
 	};
 	std::hash<std::string> str_hash;
 	std::hash<int>         int_hash;

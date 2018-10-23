@@ -4,6 +4,7 @@
 #include <string>
 #include "structures.h"
 #include "timeline.h"
+#include "demo.h"
 using namespace std;
 
 TEST(tool_test, Matches_oprator) {
@@ -69,4 +70,16 @@ TEST(tool_test, get_match_index_test) {
 	timeline.set_curr("2018-06-14T22:00:00Z");
 	index = m.get_match_index_till(timeline);
 	EXPECT_EQ(index, 0);
+}
+
+TEST(tool_test, team_code_test) {
+	demo d;
+	d.init();
+	ASSERT_EQ(d.get_team_code("SRB"), SRB);
+}
+
+TEST(tool_test, team_hash_table_test) {
+	Teams t;
+	ASSERT_EQ(t.teams.find("RUS").country, "Russia");
+	ASSERT_EQ(t.teams.find("JPN").country, "Japan");
 }

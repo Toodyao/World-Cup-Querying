@@ -6,10 +6,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 #include <rapidjson/document.h>
 #include <rapidjson/filereadstream.h>
 #include "my_time.h"
 #include "timeline.h"
+#include "rank.hpp"
+#include "hash.hpp"
 
 //#define DEBUG_READ_DATA_OUTPUT
 
@@ -20,6 +23,12 @@ using std::endl;
 
 using std::string;
 using std::vector;
+
+typedef enum {RUS, KSA, URU, EGY, MAR, IRN, POR, ESP, FRA,
+			  AUS, ARG, ISL, PER, DEN, CRO, NGA, CRC, SRB,
+			  GER, MEX, BRA, SUI, SWE, KOR, BEL, PAN, TUN,
+			  ENG, COL, JPN, POL, SEN} CountyType;
+typedef enum {A = 0, B, C, D, E, F, G, H} GroupType;
 
 class Player {
 public:
@@ -57,6 +66,8 @@ public:
 	string code;
 	int goals;
 	int penalties;
+	GroupType group;
+	int points; // Used in group matches
 	void read(const rapidjson::Value& v);
 };
 
@@ -101,6 +112,16 @@ public:
 	int get_current_match_info(Timeline timeline);
 	size_t size();
 	Match& operator [] (int i);
+};
+
+class Group {
+public:
+	GroupType group_num; // Group number 0 to 7 indicates Group A to H
+	Rank<Team> member = Rank<Team>(4); // Each group has 4 members
+
+	Group() = default;
+
+
 };
 
 #endif //WORLD_CUP_QUERYING_STRUCTURES_H
