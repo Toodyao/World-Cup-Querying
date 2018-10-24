@@ -11,7 +11,8 @@ add_executable(project_test
         time_test.cpp
         structure_test.cpp
         algorithm_test.cpp
-        json_test.cpp)
+        json_test.cpp
+        )
 
 target_link_libraries(project_test gtest gtest_main)
 target_link_libraries(project_test src_files)

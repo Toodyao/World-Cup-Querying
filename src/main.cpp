@@ -24,17 +24,16 @@ int main() {
 
 	demo d;
 	d.init();
-	d.set_time("2018-06-16T00:22:00Z");
-	d.update_player();
-	d.update_goal_rank();
+	d.set_time("2018-06-14T15:13:00Z");
+	d.update();
 	d.print_goal_rank();
-	cout << "-----------" << endl;
-	d.set_time("2018-07-16T00:22:00Z");
-	d.update_player();
-	d.update_goal_rank();
-	d.print_goal_rank();
-	cout << d.players.hash_conflict() << endl;
-	d.goal_rank_test();
+	//cout << "-----------" << endl;
+	//d.set_time("2018-07-16T00:22:00Z");
+	//d.update();
+	//d.print_goal_rank();
+	//d.goal_rank_test();
+	//cout << d.players.hash_conflict() << endl;
+	//d.goal_rank_test();
 //	d.print_player();
 //	show_goal_rank(m);
 	return 0;

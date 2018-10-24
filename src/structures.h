@@ -24,10 +24,11 @@ using std::endl;
 using std::string;
 using std::vector;
 
-typedef enum {RUS, KSA, URU, EGY, MAR, IRN, POR, ESP, FRA,
-			  AUS, ARG, ISL, PER, DEN, CRO, NGA, CRC, SRB,
-			  GER, MEX, BRA, SUI, SWE, KOR, BEL, PAN, TUN,
-			  ENG, COL, JPN, POL, SEN} CountyType;
+typedef enum {RUS, KSA, URU, EGY, MAR, IRN, POR, ESP,
+			  FRA, AUS, ARG, ISL, PER, DEN, CRO, NGA,
+			  CRC, SRB, GER, MEX, BRA, SUI, SWE, KOR,
+			  BEL, PAN, TUN, ENG, COL, JPN, POL, SEN}
+			  CountyType;
 typedef enum {A = 0, B, C, D, E, F, G, H} GroupType;
 
 class Player {
@@ -61,7 +62,7 @@ public:
 
 class Team {
 public:
-//	int id; // Don't know what is it
+	//int id; // Don't know what is it
 	string country;
 	string code;
 	int goals;
@@ -69,6 +70,26 @@ public:
 	GroupType group;
 	int points; // Used in group matches
 	void read(const rapidjson::Value& v);
+};
+
+class Teams {
+public:
+	typedef string CodeString;
+	Hash<CodeString, Team> teams;
+	std::map<CountyType, string> team_code_country_map;
+	std::map<CodeString, CountyType> team_code_code_map;
+
+	Teams() {
+		build_team_code_map();
+		build_team_hash();
+	}
+
+	Team& find(string team_code);
+	void build_team_hash();
+	void build_team_code_map();
+	void update();
+	vector<Team> get_vector();
+	CountyType get_team_code(string code);
 };
 
 class TeamEvent {
@@ -114,13 +135,26 @@ public:
 	Match& operator [] (int i);
 };
 
+class Players {
+public:
+	Hash<string, Player> players;
+
+	Matches* matches_ptr;
+
+	void clear();
+	void update(Timeline timeline);
+	void set_matches(Matches* m);
+	void build_player_hash(Timeline timeline);
+	void count_goal(int i, vector<TeamEvent> tv, Team team);
+	Hash<string, Player>& hash_raw();
+};
+
 class Group {
 public:
 	GroupType group_num; // Group number 0 to 7 indicates Group A to H
 	Rank<Team> member = Rank<Team>(4); // Each group has 4 members
 
 	Group() = default;
-
 
 };
 

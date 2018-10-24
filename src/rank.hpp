@@ -36,6 +36,7 @@ void Rank<T>::add(T x) {
 
 template<typename T>
 void Rank<T>::update() {
+	// TODO: add bubble sort
 	std::sort(v.begin(), v.end(), std::greater<T>());
 }
 
