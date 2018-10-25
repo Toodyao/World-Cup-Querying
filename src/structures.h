@@ -64,12 +64,16 @@ class Team {
 public:
 	//int id; // Don't know what is it
 	string country;
-	string code;
-	int goals;
-	int penalties;
+	string code_str;
+	CountyType code;
+	int goals = 0;
+	int penalties = 0;
 	GroupType group;
-	int points; // Used in group matches
+	int points = 0; // Used in group matches
 	void read(const rapidjson::Value& v);
+	bool operator > (const Team& a) const {
+		return this->points > a.points;
+	}
 };
 
 class Teams {
@@ -78,16 +82,19 @@ public:
 	Hash<CodeString, Team> teams;
 	std::map<CountyType, string> team_code_country_map;
 	std::map<CodeString, CountyType> team_code_code_map;
+	std::map<CountyType, GroupType> team_group_map;
 
 	Teams() {
-		build_team_code_map();
+		build_team_static_map();
 		build_team_hash();
 	}
 
 	Team& find(string team_code);
 	void build_team_hash();
-	void build_team_code_map();
+	void build_team_static_map();
 	void update();
+	GroupType get_group(CountyType c);
+	GroupType get_group(CodeString c);
 	vector<Team> get_vector();
 	CountyType get_team_code(string code);
 };
@@ -151,10 +158,48 @@ public:
 
 class Group {
 public:
-	GroupType group_num; // Group number 0 to 7 indicates Group A to H
-	Rank<Team> member = Rank<Team>(4); // Each group has 4 members
+	GroupType group_num; // Group A to H
+	Rank<Team> member; // Each group has 4 members
 
 	Group() = default;
+};
+
+class Groups {
+public:
+	vector<Rank<Team> > groups = vector<Rank<Team> >(8);
+	Teams* teams;
+
+	//Groups() {
+	//	make_group();
+	//};
+
+	Groups(Teams* t) {
+		set_team(t);
+		make_group();
+	}
+	void set_team(Teams* t) {teams = t;};
+	void make_group() {
+		groups.clear();
+		groups.resize(8);
+		auto v = teams->get_vector();
+		for (auto& i : v) {
+			groups[i.group].add(i);
+		}
+	}
+	void update() {
+		make_group();
+		for (auto& i : groups) {
+			i.update();
+		}
+	}
+	Rank<Team>& get_group(GroupType group_num) {return groups[(int)group_num];};
+	Rank<Team>& get_group(int group_num) {return groups[group_num];};
+	Rank<Team>& get_group(string group_str) {
+		assert(group_str.length() == 1);
+		return groups[group_str[0] - 'A'];
+	};
+
+
 
 };
 

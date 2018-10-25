@@ -76,6 +76,27 @@ TEST(tool_test, team_hash_table_test) {
 	ASSERT_EQ(t.find("RUS").country, "Russia");
 	ASSERT_EQ(t.find("JPN").country, "Japan");
 
-	ASSERT_EQ(t.find("RUS").code, "RUS");
-	ASSERT_EQ(t.find("JPN").code, "JPN");
+	ASSERT_EQ(t.find("RUS").code_str, "RUS");
+	ASSERT_EQ(t.find("JPN").code_str, "JPN");
+
+	ASSERT_EQ(t.find("RUS").code, RUS);
+	ASSERT_EQ(t.find("JPN").code, JPN);
+
+	ASSERT_EQ(t.find("RUS").group, A);
+	ASSERT_EQ(t.find("JPN").group, H);
+
+	ASSERT_EQ(t.get_group(RUS), A);
+	ASSERT_EQ(t.get_group("RUS"), A);
+}
+
+TEST(tool_test, group_test) {
+	Teams t;
+	Groups g(&t);
+	ASSERT_EQ(g.get_group(A).size(), 4);
+	ASSERT_EQ(g.get_group(1).size(), 4);
+	ASSERT_EQ(g.get_group("H").size(), 4);
+
+	t.find("RUS").points = 5;
+	g.update();
+	ASSERT_EQ(g.get_group(A)[0].code_str, "RUS");
 }

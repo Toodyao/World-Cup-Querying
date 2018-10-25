@@ -3,14 +3,14 @@ using std::make_pair;
 
 void Team::read(const rapidjson::Value& v) {
 	country   = v["country"].GetString();
-	code      = v["code"].GetString();
+	code_str      = v["code"].GetString();
 	goals     = v["goals"].GetInt();
 	penalties = v["penalties"].GetInt();
 
 #ifdef DEBUG_READ_DATA_OUTPUT
 	//	cout << "{" << endl;
 	cout << country << endl;
-	cout << code << endl;
+	cout << code_str << endl;
 	cout << goals << endl;
 	cout << penalties << endl;
 //	cout << "}" << endl;
@@ -24,14 +24,15 @@ void Teams::build_team_hash() {
 		temp.goals = 0;
 		temp.penalties = 0;
 		temp.points = 0;
-		temp.code = i.first;
+		temp.code_str = i.first;
+		temp.code = team_code_code_map[temp.code_str];
 		temp.country = team_code_country_map[i.second];
-		//temp.group
-		teams.insert(temp.code, temp);
+		temp.group = get_group(temp.code);
+		teams.insert(temp.code_str, temp);
 	}
 }
 
-void Teams::build_team_code_map() {
+void Teams::build_team_static_map() {
 
 	team_code_country_map.clear();
 
@@ -102,6 +103,48 @@ void Teams::build_team_code_map() {
 	team_code_code_map.insert(make_pair("JPN",  JPN));
 	team_code_code_map.insert(make_pair("POL",  POL));
 	team_code_code_map.insert(make_pair("SEN",  SEN));
+
+	team_group_map.clear();
+
+	team_group_map.insert(make_pair(RUS,  A));
+	team_group_map.insert(make_pair(KSA,  A));
+	team_group_map.insert(make_pair(URU,  A));
+	team_group_map.insert(make_pair(EGY,  A));
+
+	team_group_map.insert(make_pair(MAR,  B));
+	team_group_map.insert(make_pair(IRN,  B));
+	team_group_map.insert(make_pair(POR,  B));
+	team_group_map.insert(make_pair(ESP,  B));
+
+	team_group_map.insert(make_pair(FRA,  C));
+	team_group_map.insert(make_pair(AUS,  C));
+	team_group_map.insert(make_pair(PER,  C));
+	team_group_map.insert(make_pair(DEN,  C));
+
+	team_group_map.insert(make_pair(ARG,  D));
+	team_group_map.insert(make_pair(ISL,  D));
+	team_group_map.insert(make_pair(NGA,  D));
+	team_group_map.insert(make_pair(CRO,  D));
+
+	team_group_map.insert(make_pair(BRA,  E));
+	team_group_map.insert(make_pair(SRB,  E));
+	team_group_map.insert(make_pair(CRC,  E));
+	team_group_map.insert(make_pair(SUI,  E));
+
+	team_group_map.insert(make_pair(SWE,  F));
+	team_group_map.insert(make_pair(MEX,  F));
+	team_group_map.insert(make_pair(KOR,  F));
+	team_group_map.insert(make_pair(GER,  F));
+
+	team_group_map.insert(make_pair(BEL,  G));
+	team_group_map.insert(make_pair(ENG,  G));
+	team_group_map.insert(make_pair(PAN,  G));
+	team_group_map.insert(make_pair(TUN,  G));
+
+	team_group_map.insert(make_pair(COL,  H));
+	team_group_map.insert(make_pair(JPN,  H));
+	team_group_map.insert(make_pair(POL,  H));
+	team_group_map.insert(make_pair(SEN,  H));
 }
 
 CountyType Teams::get_team_code(string code) {
@@ -125,4 +168,12 @@ vector<Team> Teams::get_vector() {
 
 Team& Teams::find(string team_code) {
 	return teams.find(team_code);
+}
+
+GroupType Teams::get_group(CountyType c) {
+	return team_group_map[c];
+}
+
+GroupType Teams::get_group(Teams::CodeString c) {
+	return team_group_map[team_code_code_map[c]];
 }
