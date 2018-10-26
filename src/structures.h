@@ -35,6 +35,7 @@ class Player {
 public:
 	string name;
 	string country;
+	string country_code;
 	int goal;
 	int substitution_in;
 	int substitution_out;
@@ -66,37 +67,16 @@ public:
 	string country;
 	string code_str;
 	CountyType code;
-	int goals = 0;
-	int penalties = 0;
 	GroupType group;
+	int goals = 0;
+	int goal_own = 0;
+	int goal_opposite = 0;
+	int goal_penalties = 0;
 	int points = 0; // Used in group matches
 	void read(const rapidjson::Value& v);
 	bool operator > (const Team& a) const {
 		return this->points > a.points;
 	}
-};
-
-class Teams {
-public:
-	typedef string CodeString;
-	Hash<CodeString, Team> teams;
-	std::map<CountyType, string> team_code_country_map;
-	std::map<CodeString, CountyType> team_code_code_map;
-	std::map<CountyType, GroupType> team_group_map;
-
-	Teams() {
-		build_team_static_map();
-		build_team_hash();
-	}
-
-	Team& find(string team_code);
-	void build_team_hash();
-	void build_team_static_map();
-	void update();
-	GroupType get_group(CountyType c);
-	GroupType get_group(CodeString c);
-	vector<Team> get_vector();
-	CountyType get_team_code(string code);
 };
 
 class TeamEvent {
@@ -126,6 +106,7 @@ public:
 	void read(const rapidjson::Value& d);
 	void read_events(vector<TeamEvent>& events, const rapidjson::Value& v);
 	void clean_events(vector<TeamEvent>& events);
+	void count_goal_own();
 	Match() {
 		valid = false;
 	}
@@ -153,15 +134,39 @@ public:
 	void set_matches(Matches* m);
 	void build_player_hash(Timeline timeline);
 	void count_goal(int i, vector<TeamEvent> tv, Team team);
+	vector<Player> get_vector();
 	Hash<string, Player>& hash_raw();
 };
 
-class Group {
+class Teams {
 public:
-	GroupType group_num; // Group A to H
-	Rank<Team> member; // Each group has 4 members
+	typedef string CodeString;
+	Hash<CodeString, Team> teams;
+	std::map<CountyType, string> team_code_country_map;
+	std::map<CodeString, CountyType> team_code_code_map;
+	std::map<CountyType, GroupType> team_group_map;
+	Players* players;
+	Matches* matches;
+	Timeline* timeline;
 
-	Group() = default;
+	Teams() {
+		build_team_static_map();
+		//build_team_hash();
+	}
+
+	void set_player(Players* p);
+	void set_match(Matches* m);
+	void set_timeline(Timeline* t);
+
+	Team& find(string team_code);
+	void build_team_hash();
+	void build_team_static_map();
+	void update();
+	GroupType get_group(CountyType c);
+	GroupType get_group(CodeString c);
+	vector<Team> get_vector();
+	CountyType get_team_code(string code);
+	void count_goal(vector<TeamEvent>& event, int i, Team& home_team, Team& away_team);
 };
 
 class Groups {
@@ -169,18 +174,21 @@ public:
 	vector<Rank<Team> > groups = vector<Rank<Team> >(8);
 	Teams* teams;
 
-	//Groups() {
-	//	make_group();
-	//};
-
+	Groups() {
+		//make_group();
+	};
 	Groups(Teams* t) {
 		set_team(t);
 		make_group();
+	}
+	Rank<Team>& operator [] (int i) {
+		return groups[i];
 	}
 	void set_team(Teams* t) {teams = t;};
 	void make_group() {
 		groups.clear();
 		groups.resize(8);
+		assert(teams);
 		auto v = teams->get_vector();
 		for (auto& i : v) {
 			groups[i.group].add(i);
@@ -199,6 +207,7 @@ public:
 		return groups[group_str[0] - 'A'];
 	};
 
+	vector<Rank<Team>> get_vector();
 
 
 };

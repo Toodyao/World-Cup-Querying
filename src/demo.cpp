@@ -16,11 +16,12 @@ void demo::init() {
 	timeline.set_curr("2018-06-14T15:00:00Z");
 
 	players.set_matches(&matches);
+	//teams.set_player(&players);
+	teams.set_timeline(&timeline);
+	teams.set_match(&matches);
+	groups.set_team(&teams);
+	groups.make_group();
 
-	// Group init
-	for (int i = 0; i < 8; i++) {
-		groups[i].group_num = (GroupType)i;
-	}
 }
 
 void demo::update() {
@@ -28,6 +29,7 @@ void demo::update() {
 	update_goal_rank();
 
 	teams.update();
+	groups.update();
 }
 
 void demo::update_goal_rank() {

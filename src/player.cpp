@@ -40,6 +40,7 @@ void Players::count_goal(int i, vector<TeamEvent> tv, Team team) {
 			if (players.find_ptr(tv[j].player) == nullptr) { // If not exits, add new.
 				Player tmp;
 				tmp.country = team.country;
+				tmp.country_code = team.code_str;
 				tmp.name = tv[j].player;
 				tmp.goal = 1;
 				//std::pair<string, Player> p(tv[j].player, tmp);
@@ -48,6 +49,9 @@ void Players::count_goal(int i, vector<TeamEvent> tv, Team team) {
 				auto& it = players.find(tv[j].player);
 				it.goal++;
 			}
+		}
+		if (tv[j].type == "goal_own") {
+
 		}
 	}
 }
@@ -62,4 +66,18 @@ Hash<string, Player>& Players::hash_raw() {
 
 void Players::set_matches(Matches* m) {
 	matches_ptr = m;
+}
+
+vector<Player> Players::get_vector() {
+	vector<Player> v;
+	for (auto& list : players.v) {
+		for (auto& item : list) {
+			v.push_back(item.value);
+		}
+	}
+	return v;
+}
+
+vector<Rank<Team>> Groups::get_vector() {
+	return groups;
 }

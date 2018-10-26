@@ -24,9 +24,28 @@ int main() {
 
 	demo d;
 	d.init();
-	d.set_time("2018-06-14T15:13:00Z");
+	//d.set_time("2018-06-14T15:13:00Z");
+	d.set_time("2018-06-19T18:13:00Z");
 	d.update();
-	d.print_goal_rank();
+	d.set_time("2018-06-20T18:13:00Z");
+	d.update();
+	d.set_time("2018-06-21T18:13:00Z");
+	d.update();
+	d.set_time("2018-06-28T18:13:00Z");
+	d.update();
+	auto v = d.players.get_vector();
+	auto v1 = d.teams.get_vector();
+	auto v2 = d.groups.get_vector();
+
+	for (auto& i : v1) {
+		if (i.code == MAR) {
+			int a = 0;
+		}
+		if (i.code == IRN) {
+			int b = 0;
+		}
+	}
+	//d.print_goal_rank();
 	//cout << "-----------" << endl;
 	//d.set_time("2018-07-16T00:22:00Z");
 	//d.update();

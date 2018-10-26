@@ -56,7 +56,8 @@ void Match::clean_events(vector<TeamEvent>& events) { // TODO: Need test and nee
 	a = events.begin();
 	b = events.begin(); ++b;
 	while (b != events.end()) {
-		if (((*a).type == "goal" || (*a).type == "goal-penalty") && ((*a).type == (*b).type) && ((*a).player == (*b).player) && ((*b).time - (*a).time) < 4) {
+		if (((*a).type == "goal" || (*a).type == "goal-penalty" || (*a).type == "goal-own")
+			&& ((*a).type == (*b).type) && ((*a).player == (*b).player) && ((*b).time - (*a).time) < 4) {
 			auto tmp = a;
 			events.erase(tmp);
 			if (b == events.end()) {
@@ -66,5 +67,11 @@ void Match::clean_events(vector<TeamEvent>& events) { // TODO: Need test and nee
 		} else {
 			a++; b++;
 		}
+	}
+}
+
+void Match::count_goal_own() {
+	for (auto& i : home_events) {
+
 	}
 }

@@ -3,16 +3,16 @@ using std::make_pair;
 
 void Team::read(const rapidjson::Value& v) {
 	country   = v["country"].GetString();
-	code_str      = v["code"].GetString();
+	code_str  = v["code"].GetString();
 	goals     = v["goals"].GetInt();
-	penalties = v["penalties"].GetInt();
+	goal_penalties = v["penalties"].GetInt();
 
 #ifdef DEBUG_READ_DATA_OUTPUT
 	//	cout << "{" << endl;
 	cout << country << endl;
 	cout << code_str << endl;
 	cout << goals << endl;
-	cout << penalties << endl;
+	cout << goal_penalties << endl;
 //	cout << "}" << endl;
 #endif
 }
@@ -22,7 +22,7 @@ void Teams::build_team_hash() {
 	for (auto& i : team_code_code_map) {
 		Team temp;
 		temp.goals = 0;
-		temp.penalties = 0;
+		temp.goal_penalties = 0;
 		temp.points = 0;
 		temp.code_str = i.first;
 		temp.code = team_code_code_map[temp.code_str];
@@ -154,6 +154,33 @@ CountyType Teams::get_team_code(string code) {
 void Teams::update() {
 	teams.clear();
 	build_team_hash();
+
+	int index = matches->get_match_index_till(*timeline);
+	Matches m = *matches;
+
+	for (int i = 0; i < index; i++) {
+		string home_team_code = m[i].home_team.code_str;
+		string away_team_code = m[i].away_team.code_str;
+		Team& home_team = teams.find(home_team_code);
+		Team& away_team = teams.find(away_team_code);
+		count_goal(m[i].home_events, i, home_team, away_team);
+		count_goal(m[i].away_events, i, away_team, home_team);
+	}
+}
+
+void Teams::count_goal(vector<TeamEvent>& event, int i, Team& home_team, Team& away_team) {
+	for (auto& e : event) {
+		if(e.type == "goal") {
+			home_team.goals += 1;
+		}
+		if (e.type == "goal-penalty") {
+			home_team.goal_penalties += 1;
+		}
+		if (e.type == "goal-own") {
+			home_team.goal_own += 1;
+			away_team.goal_opposite += 1;
+		}
+	}
 }
 
 vector<Team> Teams::get_vector() {
@@ -176,4 +203,16 @@ GroupType Teams::get_group(CountyType c) {
 
 GroupType Teams::get_group(Teams::CodeString c) {
 	return team_group_map[team_code_code_map[c]];
+}
+
+void Teams::set_player(Players* p) {
+	players = p;
+}
+
+void Teams::set_match(Matches* m) {
+	matches = m;
+}
+
+void Teams::set_timeline(Timeline* t) {
+	timeline = t;
 }

@@ -17,8 +17,8 @@ public:
 	Rank<Player> goal_rank;
 	Players players;
 	Teams teams;
-	vector<Group> groups = vector<Group>(8);
-
+	Groups groups;
+	
 	void init();
 	void update();
 	void update_goal_rank();
