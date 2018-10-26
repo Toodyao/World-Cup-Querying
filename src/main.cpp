@@ -37,12 +37,12 @@ int main() {
 	auto v1 = d.teams.get_vector();
 	auto v2 = d.groups.get_vector();
 
-	for (auto& i : v1) {
-		if (i.code == MAR) {
-			int a = 0;
-		}
-		if (i.code == IRN) {
-			int b = 0;
+	for (auto& rank : v2) {
+		cout << "---" << (char)(rank.v[0].group + 'A') << "---" << endl;
+		for (int i = 0; i < 4; i++) {
+			cout << rank.v[i].country;
+			cout << ": ";
+			cout << rank.v[i].points << endl;
 		}
 	}
 	//d.print_goal_rank();

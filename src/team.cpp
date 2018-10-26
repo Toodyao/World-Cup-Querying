@@ -165,6 +165,8 @@ void Teams::update() {
 		Team& away_team = teams.find(away_team_code);
 		count_goal(m[i].home_events, i, home_team, away_team);
 		count_goal(m[i].away_events, i, away_team, home_team);
+
+		count_points(m[i].winner, home_team, away_team);
 	}
 
 	string home_team_code = m[index].home_team.code_str;
@@ -173,15 +175,34 @@ void Teams::update() {
 	Team& away_team = teams.find(away_team_code);
 	count_goal(m[index].home_events, index, home_team, away_team);
 	count_goal(m[index].away_events, index, away_team, home_team);
+
+	if (timeline->curr() > m[index].time.seconds()) { // If match is finished.
+		count_points(m[index].winner, home_team, away_team);
+	}
+}
+
+void Teams::count_points(const string& winner, Team& home_team, Team& away_team) {
+	if (winner == home_team.country)
+			home_team.points += 3;
+	else if (winner == away_team.country)
+			away_team.points += 3;
+	else { // Draw
+			home_team.points += 1;
+			away_team.points += 1;
+	}
 }
 
 void Teams::count_goal(vector<TeamEvent>& event, int i, Team& home_team, Team& away_team) {
 	for (auto& e : event) {
 		if(e.type == "goal") {
 			home_team.goals += 1;
+			home_team.goal_diff += 1;
+			away_team.goal_diff -= 1;
 		}
 		if (e.type == "goal-penalty") {
 			home_team.goal_penalties += 1;
+			home_team.goal_diff += 1;
+			away_team.goal_diff -= 1;
 		}
 		if (e.type == "goal-own") {
 			home_team.goal_own += 1;

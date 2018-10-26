@@ -72,6 +72,7 @@ public:
 	int goal_own = 0;
 	int goal_opposite = 0;
 	int goal_penalties = 0;
+	int goal_diff = 0;
 	int points = 0; // Used in group matches
 	void read(const rapidjson::Value& v);
 	bool operator > (const Team& a) const {
@@ -167,6 +168,7 @@ public:
 	vector<Team> get_vector();
 	CountyType get_team_code(string code);
 	void count_goal(vector<TeamEvent>& event, int i, Team& home_team, Team& away_team);
+	void count_points(const string& winner, Team& home_team, Team& away_team);
 };
 
 class Groups {
