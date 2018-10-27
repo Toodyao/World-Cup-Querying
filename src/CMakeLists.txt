@@ -20,7 +20,7 @@ add_library(src_files
         team.cpp
         team_event.cpp
         match.cpp
-        matches.cpp)
+        matches.cpp knockout.cpp knockout.h)
 
 add_executable(project_main
         main.cpp

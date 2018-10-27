@@ -14,6 +14,7 @@ void demo::init() {
 
 	// Default timeline
 	timeline.set_curr("2018-06-14T15:00:00Z");
+	//knockout_time.set_time("2018-06-30T14:00:00Z");
 
 	players.set_matches(&matches);
 	//teams.set_player(&players);
@@ -21,6 +22,10 @@ void demo::init() {
 	teams.set_match(&matches);
 	groups.set_team(&teams);
 	groups.make_group();
+
+	knockout.set_matches(&matches);
+	knockout.set_timeline(&timeline);
+	knockout.set_groups(&groups);
 
 }
 
@@ -30,6 +35,10 @@ void demo::update() {
 
 	teams.update();
 	groups.update();
+
+	if (timeline.curr() >= knockout_time.seconds()) {
+		knockout.update();
+	}
 }
 
 void demo::update_goal_rank() {

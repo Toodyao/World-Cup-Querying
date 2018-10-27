@@ -16,6 +16,7 @@ private:
 public:
 	MyTime();
 	explicit MyTime(std::string& t);
+	explicit MyTime(const char* t);
 
 	void set_time(std::string t);
 

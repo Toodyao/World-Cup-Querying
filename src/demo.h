@@ -7,6 +7,7 @@
 #include "structures.h"
 #include "rank.hpp"
 #include "hash.hpp"
+#include "knockout.h"
 
 using std::string;
 
@@ -18,6 +19,11 @@ public:
 	Players players;
 	Teams teams;
 	Groups groups;
+	Knockout knockout;
+	
+	demo() {
+		init();
+	}
 	
 	void init();
 	void update();

@@ -87,3 +87,7 @@ int MyTime::min() {
 int MyTime::sec() {
 	return time_raw.tm_sec;
 }
+
+MyTime::MyTime(const char* t) {
+	set_time(t);
+}
