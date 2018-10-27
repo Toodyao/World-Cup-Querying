@@ -23,6 +23,9 @@ TEST(tool_test, time_test) {
 	t3.set_time("2018-06-14T15:00:01Z");
 	EXPECT_EQ("2018-06-14T15:00:01Z", t3.get_string());
 	EXPECT_EQ(1, t3.seconds());
+
+	MyTime t4("2018-06-14T16:00:00Z");
+	EXPECT_EQ("2018-06-14T16:00:00Z", t4.get_string());
 }
 
 TEST(tool_test, prase_time_test) {
