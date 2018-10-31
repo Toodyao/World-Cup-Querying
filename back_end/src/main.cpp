@@ -11,6 +11,7 @@
 #include "timeline.h"
 #include "demo.h"
 #include "hash.hpp"
+#include "backend.h"
 
 using namespace std;
 using namespace rapidjson;
@@ -20,7 +21,8 @@ using namespace rapidjson;
 
 int main() {
 
-	demo d;
+	//demo d;
+	BackEnd d;
 	d.init();
 	d.set_time("2018-06-14T15:13:00Z");
 	d.set_time("2018-06-19T18:13:00Z");

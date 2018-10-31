@@ -1,7 +1,7 @@
 #ifndef WORLD_CUP_QUERYING_DEMO_H
 #define WORLD_CUP_QUERYING_DEMO_H
 
-#include <string>
+//#include <string>
 #include <unordered_map>
 #include <map>
 #include "structures.h"
