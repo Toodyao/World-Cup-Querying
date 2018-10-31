@@ -1,3 +1,25 @@
+# Front-end build files
+front_end/debug
+front_end/Makefile
+front_end/Makefile.*
+front_end/object_script*
+front_end/.qmake.stash
+front_end/front_end.pro.user
+
+
+# Thrid-party libraries
+back_end/third_party/googletest
+back_end/third_party/rapidjson
+
+# CMake files
+back_end/cmake-build-debug/
+
+# IDEA settings
+back_end/.idea/.name
+back_end/.idea/dictionaries
+back_end/.idea/workspace.xml
+
+
 # Prerequisites
 *.d
 
