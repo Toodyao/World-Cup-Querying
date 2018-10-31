@@ -19,15 +19,21 @@ public:
 	Groups groups;
 	Knockout knockout;
 
+	Match curr_match;
+	bool has_match_bool;
+
 	BackEnd() {
-		init();
+		//init();
 	}
 
 	void init();
+	void init(string data_path);
 	void update();
 	void update_goal_rank();
 	void set_time(const string& s);
+	string get_time_string();
 	int get_curr_match_index(Timeline timeline);
+    bool has_match();
 };
 
 
