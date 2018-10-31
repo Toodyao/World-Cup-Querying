@@ -67,7 +67,7 @@ template<typename K, typename V>
 V& Hash<K,V>::find(K key) {
 	// TODO: return 'NULL'
 	size_t hash_code = get_hash(key);
-	for (int i = 0; i < v[hash_code].size(); i++) {
+	for (size_t i = 0; i < v[hash_code].size(); i++) {
 		auto& list = v[hash_code];
 		if (list[i].key == key) {
 			return list[i].value;
@@ -84,6 +84,7 @@ V* Hash<K, V>::find_ptr(K key) {
 			return &(list[i].value);
 		}
 	}
+	return nullptr;
 }
 
 template<typename K, typename V>

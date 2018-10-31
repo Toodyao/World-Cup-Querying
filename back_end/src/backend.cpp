@@ -41,9 +41,9 @@ void BackEnd::update_goal_rank() {
 	int index = matches.get_match_index_till(timeline);
 	goal_rank.clear();
 	auto& hash_table = players.hash_raw().v;
-	for (int i = 0; i < hash_table.size(); i++) {
+	for (size_t i = 0; i < hash_table.size(); i++) {
 		auto& list = hash_table[i];
-		for (int j = 0; j < list.size(); j++) {
+		for (size_t j = 0; j < list.size(); j++) {
 			goal_rank.add(list[j].value);
 		}
 	}

@@ -7,9 +7,9 @@
 class MyTime {
 private:
 	typedef struct tm tm;
-	tm time_raw = {0};
+	tm time_raw = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 	time_t time_value;
-	tm zero_time = {0}; // Time of the first match
+	tm zero_time = {0, 0, 0, 0, 0, 0, 0, 0, 0}; // Time of the first match
 	time_t zero_value;
 	double seconds_total;
 	int time_zone_diff;
