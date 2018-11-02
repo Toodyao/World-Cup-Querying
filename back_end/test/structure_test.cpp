@@ -55,15 +55,15 @@ TEST(tool_test, get_match_index_test) {
 	int index;
 
 	timeline.set_curr("2018-06-14T22:00:00Z");
-	index = m.get_current_match_info(timeline);
+	index = m.get_current_match_index(timeline);
 	EXPECT_EQ(index, -1);
 
 	timeline.set_curr("2018-06-14T16:00:00Z");
-	index = m.get_current_match_info(timeline);
+	index = m.get_current_match_index(timeline);
 	EXPECT_EQ(index, 0);
 
 	timeline.set_curr("2018-07-15T15:01:00Z");
-	index = m.get_current_match_info(timeline);
+	index = m.get_current_match_index(timeline);
 	EXPECT_EQ(index, 63);
 
 	timeline.set_curr("2018-06-14T22:00:00Z");

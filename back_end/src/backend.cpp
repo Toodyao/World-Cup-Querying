@@ -7,6 +7,7 @@ using std::endl;
 void BackEnd::init() {
 	// Get data ready
 	FILE* fp = fopen("../../data/output.json", "r");
+	assert(fp);
 	matches.read(fp);
 
 	// Default timeline
@@ -57,8 +58,11 @@ void BackEnd::update() {
 	teams.update();
 	groups.update();
 
-	has_match_bool = (matches.get_current_match_info(timeline) != -1);
-	curr_match = matches[matches.get_match_index_till(timeline)];
+	has_match_bool = (matches.get_current_match_index(timeline) != -1);
+	if (has_match_bool) {
+		curr_match = matches.get_current_match_info(timeline);
+	}
+
 
 	if (timeline.curr() >= knockout_time.seconds()) {
 		knockout.update();
@@ -93,3 +97,20 @@ string BackEnd::get_time_string() {
 bool BackEnd::has_match() {
 	return has_match_bool;
 }
+
+string BackEnd::get_home_name() {
+	return curr_match.home_team.country;
+}
+
+string BackEnd::get_away_name() {
+	return curr_match.away_team.country;
+}
+
+int BackEnd::get_home_goal() {
+	return curr_match.home_team.goals;
+}
+
+int BackEnd::get_away_goal() {
+	return curr_match.away_team.goals;
+}
+

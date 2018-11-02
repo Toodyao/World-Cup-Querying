@@ -22,6 +22,7 @@ public:
 	Match curr_match;
 	bool has_match_bool;
 
+
 	BackEnd() {
 		//init();
 	}
@@ -34,6 +35,10 @@ public:
 	string get_time_string();
 	int get_curr_match_index(Timeline timeline);
     bool has_match();
+    string get_home_name();
+    string get_away_name();
+    int get_home_goal();
+    int get_away_goal();
 };
 
 

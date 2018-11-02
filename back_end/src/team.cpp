@@ -169,12 +169,15 @@ void Teams::update() {
 		count_points(m[i].winner, home_team, away_team);
 	}
 
+	// Match is not finished, count partial.
 	string home_team_code = m[index].home_team.code_str;
 	string away_team_code = m[index].away_team.code_str;
 	Team& home_team = teams.find(home_team_code);
 	Team& away_team = teams.find(away_team_code);
-	count_goal(m[index].home_events, index, home_team, away_team);
-	count_goal(m[index].away_events, index, away_team, home_team);
+	auto home_event_partial = m[index].get_curr_event(0, *timeline);
+	auto away_event_partial = m[index].get_curr_event(1, *timeline);
+	count_goal(home_event_partial, index, home_team, away_team);
+	count_goal(away_event_partial, index, away_team, home_team);
 
 	if (timeline->curr() > m[index].time.seconds()) { // If match is finished.
 		count_points(m[index].winner, home_team, away_team);

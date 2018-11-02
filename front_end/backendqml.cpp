@@ -18,9 +18,6 @@ void BackEndQml::setTimeline(const QString &t)
     be.set_time(t.toLocal8Bit().constData());
     be.update();
     emit timelineChanged();
-
-    qDebug() << be.timeline.get_time_string().c_str();
-    qDebug() << has_match();
 }
 
 int BackEndQml::get_match_index()
@@ -31,4 +28,24 @@ int BackEndQml::get_match_index()
 bool BackEndQml::has_match()
 {
     return be.has_match();
+}
+
+QString BackEndQml::get_home_name()
+{
+    return be.get_home_name().c_str();
+}
+
+QString BackEndQml::get_away_name()
+{
+    return be.get_away_name().c_str();
+}
+
+int BackEndQml::get_home_goal()
+{
+    return be.get_home_goal();
+}
+
+int BackEndQml::get_away_goal()
+{
+    return be.get_away_goal();
 }

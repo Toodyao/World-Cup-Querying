@@ -110,6 +110,8 @@ public:
 	void read_events(vector<TeamEvent>& events, const rapidjson::Value& v);
 	void clean_events(vector<TeamEvent>& events);
 	void count_goal_own();
+	vector<TeamEvent> get_curr_event(int home_or_away, Timeline timeline);
+	//vector<TeamEvent> get_curr_event_union(Timeline timeline);
 	Match() {
 		valid = false;
 	}
@@ -121,9 +123,11 @@ public:
 	void read(const string& json);
 	void read(FILE* fp);
 	int get_match_index_till(Timeline timeline);
-	int get_current_match_info(Timeline timeline);
+	int get_current_match_index(Timeline timeline);
+	Match get_current_match_info(Timeline timeline);
 	size_t size();
 	Match& operator [] (int i);
+	void count_goal(vector<TeamEvent>& event, Team& home_team, Team& away_team);
 };
 
 class Players {

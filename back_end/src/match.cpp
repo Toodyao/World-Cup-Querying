@@ -75,3 +75,24 @@ void Match::count_goal_own() {
 
 	}
 }
+
+vector<TeamEvent> Match::get_curr_event(int home_or_away, Timeline timeline) {
+	int begin_time = this->time.seconds();
+	int curr_time = timeline.curr();
+	double time_diff = (curr_time - begin_time) / 60.0; // Convert to minutes.
+	assert(time_diff >= 0);
+
+	vector<TeamEvent> v;
+	vector<TeamEvent> ret;
+	if (home_or_away == 0)
+		v = home_events;
+	else
+		v = away_events;
+
+	for (auto& i : v) {
+		if (i.time <= time_diff) {
+			ret.push_back(i);
+		}
+	}
+	return ret;
+}

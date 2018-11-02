@@ -50,7 +50,7 @@ int Matches::get_match_index_till(Timeline timeline) {
 	return ret;
 }
 
-int Matches::get_current_match_info(Timeline timeline) {
+int Matches::get_current_match_index(Timeline timeline) {
 	// If no match at that timeline, return -1.
 	int ret = -1;
 	for (int i = 0; i < v.size(); i++) {
@@ -59,4 +59,45 @@ int Matches::get_current_match_info(Timeline timeline) {
 			ret = i;
 	}
 	return ret;
+}
+
+Match Matches::get_current_match_info(Timeline timeline) {
+	Match ret, temp;
+	int index = get_current_match_index(timeline);
+	ret = temp = this->operator[](index);
+	auto home_event = temp.get_curr_event(0, timeline);
+	auto away_event = temp.get_curr_event(1, timeline);
+	ret.home_events = home_event;
+	ret.away_events = away_event;
+	ret.home_team.goals = 0;
+	ret.home_team.goal_own = 0;
+	ret.home_team.goal_opposite = 0;
+	ret.home_team.goal_penalties = 0;
+	ret.away_team.goals = 0;
+	ret.away_team.goal_own = 0;
+	ret.away_team.goal_opposite = 0;
+	ret.away_team.goal_penalties = 0;
+	count_goal(home_event, ret.home_team, ret.away_team);
+	count_goal(away_event, ret.away_team, ret.home_team);
+
+	return ret;
+}
+
+void Matches::count_goal(vector<TeamEvent>& event, Team& home_team, Team& away_team) {
+	for (auto& e : event) {
+		if(e.type == "goal") {
+			home_team.goals += 1;
+			home_team.goal_diff += 1;
+			away_team.goal_diff -= 1;
+		}
+		if (e.type == "goal-penalty") {
+			home_team.goal_penalties += 1;
+			home_team.goal_diff += 1;
+			away_team.goal_diff -= 1;
+		}
+		if (e.type == "goal-own") {
+			home_team.goal_own += 1;
+			away_team.goal_opposite += 1;
+		}
+	}
 }

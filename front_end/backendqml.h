@@ -18,6 +18,11 @@ public:
 
     Q_INVOKABLE int  get_match_index();
     Q_INVOKABLE bool has_match();
+    Q_INVOKABLE QString get_home_name();
+    Q_INVOKABLE QString get_away_name();
+    Q_INVOKABLE int get_home_goal();
+    Q_INVOKABLE int get_away_goal();
+
 
 signals:
     void timelineChanged();

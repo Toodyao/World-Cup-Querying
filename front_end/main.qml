@@ -4,8 +4,8 @@ import QtQuick.Controls 2.2
 ApplicationWindow {
     id: window
     visible: true
-    width: 1024
-    height: 600
+    width: 960
+    height: 540
     title: qsTr("World Cup Querying System")
 
 
