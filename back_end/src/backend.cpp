@@ -59,9 +59,7 @@ void BackEnd::update() {
 	groups.update();
 
 	has_match_bool = (matches.get_current_match_index(timeline) != -1);
-	if (has_match_bool) {
-		curr_match = matches.get_current_match_info(timeline);
-	}
+	curr_match = matches.get_current_match_info(timeline);
 
 
 	if (timeline.curr() >= knockout_time.seconds()) {

@@ -45,3 +45,11 @@ TEST(back_end_test, home_and_away_goal_test) {
 	ASSERT_EQ(be.get_away_goal(), 0);
 
 }
+
+TEST(back_end_test, match_status_test) {
+	BackEnd be;
+	be.init();
+	be.set_time("2018-06-14T18:12:00Z");
+	EXPECT_EQ(be.has_match(), false);
+	EXPECT_EQ(be.get_curr_match_index(be.timeline), 1);
+}

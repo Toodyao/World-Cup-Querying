@@ -64,6 +64,10 @@ int Matches::get_current_match_index(Timeline timeline) {
 Match Matches::get_current_match_info(Timeline timeline) {
 	Match ret, temp;
 	int index = get_current_match_index(timeline);
+
+	if (get_current_match_index(timeline) == -1) // If no match at current time.
+		index++;                                 // Move index to the next.
+
 	ret = temp = this->operator[](index);
 	auto home_event = temp.get_curr_event(0, timeline);
 	auto away_event = temp.get_curr_event(1, timeline);
