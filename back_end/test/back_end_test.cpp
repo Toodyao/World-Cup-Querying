@@ -51,5 +51,20 @@ TEST(back_end_test, match_status_test) {
 	be.init();
 	be.set_time("2018-06-14T18:12:00Z");
 	EXPECT_EQ(be.has_match(), false);
-	EXPECT_EQ(be.get_curr_match_index(be.timeline), 1);
+	auto m = be.matches.get_current_match_info(be.timeline);
+	EXPECT_EQ(m.home_team.country, "Egypt");
+}
+
+TEST(back_end_test, goal_rank_test) {
+	BackEnd be;
+	be.init();
+	be.set_time("2018-06-14T15:00:01Z");
+	be.update();
+	auto v = be.goal_rank.v;
+	ASSERT_EQ(v.size(), 0);
+
+	be.set_time("2018-06-14T15:12:01Z");
+	be.update();
+	v = be.goal_rank.v;
+	ASSERT_EQ(v.size(), 1);
 }

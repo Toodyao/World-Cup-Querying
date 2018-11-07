@@ -28,8 +28,12 @@ void Players::build_player_hash(Timeline timeline) {
 	//int end_time_point = timeline.curr() - matches[index].time.seconds();
 	//assert(end_time_point > 0);
 
-	count_goal(index, matches[index].home_events, matches[index].home_team); // Home team goal (on-going).
-	count_goal(index, matches[index].away_events, matches[index].away_team); // Away team goal (on-going).
+	auto home_events = matches[index].get_curr_event(0, timeline);
+	auto away_events = matches[index].get_curr_event(1, timeline);
+
+
+	count_goal(index, home_events, matches[index].home_team); // Home team goal (on-going).
+	count_goal(index, away_events, matches[index].away_team); // Away team goal (on-going).
 
 }
 

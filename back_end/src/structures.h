@@ -31,7 +31,8 @@ typedef enum {RUS, KSA, URU, EGY, MAR, IRN, POR, ESP,
 			  CountyType;
 typedef enum {A = 0, B, C, D, E, F, G, H} GroupType;
 
-static MyTime knockout_time("2018-06-30T14:00:00Z");
+static MyTime knockout_time = MyTime("2018-06-30T14:00:00Z");
+static MyTime group_end_time = MyTime("2018-06-29T14:00:00Z");
 
 class Player {
 public:
@@ -190,6 +191,8 @@ public:
 		make_group();
 	}
 	Rank<Team>& operator [] (int i) {
+		assert(i <= 7);
+		assert(i >= 0);
 		return groups[i];
 	}
 	Rank<Team>& operator [] (GroupType g) {

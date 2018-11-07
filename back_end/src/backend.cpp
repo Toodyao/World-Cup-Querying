@@ -112,3 +112,14 @@ int BackEnd::get_away_goal() {
 	return curr_match.away_team.goals;
 }
 
+vector<string> BackEnd::get_goal_rank_player_name() {
+	vector<string> ret;
+	for (auto& i : goal_rank.v) {
+		ret.push_back(i.name);
+	}
+	return ret;
+}
+
+vector<Player> BackEnd::get_goal_rank() {
+	return goal_rank.v;
+}

@@ -34,6 +34,18 @@ MyTime::MyTime(std::string& t) {
 	seconds_total = difftime(time_value, zero_value);
 }
 
+MyTime::MyTime(const char* t) {
+	zero_time.tm_year = 2018 - 1900;
+	zero_time.tm_mon  = 06   - 1;
+	zero_time.tm_mday = 14;
+	zero_time.tm_hour = 15;
+	zero_time.tm_min  = 00;
+	zero_time.tm_sec  = 00;
+
+	time_zone_diff = 8;
+	set_time(t);
+}
+
 std::string MyTime::get_string() {
 	char buf[30];
 	sprintf(buf, "%d-%02d-%02dT%02d:%02d:%02dZ",
@@ -86,8 +98,4 @@ int MyTime::min() {
 
 int MyTime::sec() {
 	return time_raw.tm_sec;
-}
-
-MyTime::MyTime(const char* t) {
-	set_time(t);
 }

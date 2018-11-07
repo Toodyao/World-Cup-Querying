@@ -80,7 +80,7 @@ vector<TeamEvent> Match::get_curr_event(int home_or_away, Timeline timeline) {
 	int begin_time = this->time.seconds();
 	int curr_time = timeline.curr();
 	double time_diff = (curr_time - begin_time) / 60.0; // Convert to minutes.
-	assert(time_diff >= 0);
+	//assert(time_diff >= 0); // Match not start.
 
 	vector<TeamEvent> v;
 	vector<TeamEvent> ret;

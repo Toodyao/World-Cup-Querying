@@ -8,6 +8,7 @@
 #include "knockout.h"
 
 using std::string;
+using std::vector;
 
 class BackEnd {
 public:
@@ -21,7 +22,6 @@ public:
 
 	Match curr_match;
 	bool has_match_bool;
-
 
 	BackEnd() {
 		//init();
@@ -39,6 +39,8 @@ public:
     string get_away_name();
     int get_home_goal();
     int get_away_goal();
+    vector<string> get_goal_rank_player_name();
+    vector<Player> get_goal_rank();
 };
 
 

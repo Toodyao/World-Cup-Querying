@@ -166,7 +166,8 @@ void Teams::update() {
 		count_goal(m[i].home_events, i, home_team, away_team);
 		count_goal(m[i].away_events, i, away_team, home_team);
 
-		count_points(m[i].winner, home_team, away_team);
+		if (m[i].time.seconds() <= group_end_time.seconds()) // If it belongs to group match.
+			count_points(m[i].winner, home_team, away_team);
 	}
 
 	// Match is not finished, count partial.
@@ -179,7 +180,9 @@ void Teams::update() {
 	count_goal(home_event_partial, index, home_team, away_team);
 	count_goal(away_event_partial, index, away_team, home_team);
 
-	if (timeline->curr() > m[index].time.seconds()) { // If match is finished.
+	if (timeline->curr() > m[index].time.seconds()
+		&& timeline->curr() <= group_end_time.seconds()) {
+		// If match is finished.
 		count_points(m[index].winner, home_team, away_team);
 	}
 }
