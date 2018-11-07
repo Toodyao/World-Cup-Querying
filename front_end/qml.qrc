@@ -3,5 +3,8 @@
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>HomePage.qml</file>
+        <file>GoalRank.qml</file>
+        <file>Knockout.qml</file>
+        <file>GroupMatch.qml</file>
     </qresource>
 </RCC>

@@ -1,21 +1,10 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-import BackEndQml 1.0
 
 Item {
     id: homepage
     width: 960
     height: 540
-
-    property bool   isTimelineChanged: false
-    property bool   hasMatch
-    property int    matchIndex
-
-    property int    homeGoal
-    property int    awayGoal
-    property string homeName
-    property string awayName
-
 
     Label {
         id: match_status
@@ -26,19 +15,6 @@ Item {
         anchors.top: parent.top
         anchors.topMargin: 83
         font.weight: Font.Light
-    }
-    BackEndQml {
-        id: be
-        onTimelineChanged: {
-            console.log("timeline changed", timeline)
-            hasMatch = be.has_match();
-            console.log("hasMatch: ", hasMatch)
-            matchIndex = be.get_match_index()
-            homeName = be.get_home_name();
-            awayName = be.get_away_name();
-            homeGoal = be.get_home_goal();
-            awayGoal = be.get_away_goal();
-        }
     }
 
     Rectangle {
@@ -133,8 +109,6 @@ Item {
                 font.pixelSize: 40
             }
         }
-
-
     }
 
     TextField {
@@ -143,7 +117,7 @@ Item {
         y: 442
         width: 182
         height: 40
-        text: "2018-06-14T15:00:01Z"
+        text: "2018-07-14T15:00:01Z"
 
         Button {
             id: timeline_confirm
@@ -156,13 +130,12 @@ Item {
         }
     }
 
-    Rectangle {
+    Button {
         id: group_rect
         x: 721
         y: 83
         width: 168
         height: 86
-        color: "#ffffff"
 
         Text {
             id: group_text
@@ -171,15 +144,17 @@ Item {
             text: qsTr("小组赛")
             font.pixelSize: 25
         }
+        onClicked: {
+            stack.push("GroupMatch.qml")
+        }
     }
 
-    Rectangle {
+    Button {
         id: goal_rank_rect
         x: 721
         y: 376
         width: 168
         height: 86
-        color: "#ffffff"
         Text {
             id: goal_rank_text
             x: 46
@@ -187,15 +162,17 @@ Item {
             text: qsTr("射手榜")
             font.pixelSize: 25
         }
+        onClicked: {
+            stack.push("qrc:/GoalRank.qml")
+        }
     }
 
-    Rectangle {
+    Button {
         id: knockout_rect
         x: 721
         y: 227
         width: 168
         height: 86
-        color: "#ffffff"
         Text {
             id: knockout_text
             x: 46
@@ -203,7 +180,8 @@ Item {
             text: qsTr("淘汰赛")
             font.pixelSize: 25
         }
+        onClicked: {
+            stack.push("Knockout.qml")
+        }
     }
-
-
 }
