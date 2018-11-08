@@ -85,3 +85,17 @@ TEST(back_end_test, knockout_test) {
 	be.update();
 
 }
+
+TEST(back_end_test, get_event_union_test) {
+	BackEnd be;
+	be.init();
+	be.set_time("2018-06-14T15:00:01Z");
+	be.update();
+	auto v = be.curr_match.get_curr_event_union(be.timeline);
+	ASSERT_EQ(v.size(), 0);
+
+	be.set_time("2018-06-14T16:10:01Z");
+	be.update();
+	v = be.curr_match.get_curr_event_union(be.timeline);
+	ASSERT_EQ(v.size(), 10);
+}

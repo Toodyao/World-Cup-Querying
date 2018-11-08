@@ -96,3 +96,40 @@ vector<TeamEvent> Match::get_curr_event(int home_or_away, Timeline timeline) {
 	}
 	return ret;
 }
+
+vector<TeamEvent> Match::get_curr_event_union(Timeline timeline) {
+	auto home = get_curr_event(0, timeline);
+	auto away = get_curr_event(1, timeline);
+	vector<TeamEvent> ret;
+
+	for (auto& i : home) {
+		i.id += 10000; // id > 10000 means home team.
+	}
+
+	ret.reserve(home.size()+away.size());
+	ret.insert(ret.end(), home.begin(), home.end());
+	ret.insert(ret.end(), away.begin(), away.end());
+
+	std::stable_sort(ret.begin(), ret.end());
+
+	//int n = (int)std::max(home.size(), away.size());
+	////int i = (int)home.size(), j = (int)away.size();
+	//int i = 0, j = 0;
+	//while (i < (int)home.size() && j < (int)away.size()) {
+	//	if (home[i].time <= away[j].time && i < (int)home.size()) {
+	//		ret.push_back(home[i]);
+	//		i++;
+	//	} else if (j < (int)away.size()){
+	//		ret.push_back(away[j]);
+	//		j++;
+	//	}
+	//	//if (i < (int)home.size()) {
+	//	//	i++;
+	//	//}
+	//	//if (j < (int)away.size()) {
+	//	//	j++;
+	//	//}
+	//}
+
+	return ret;
+}

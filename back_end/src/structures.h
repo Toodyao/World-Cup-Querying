@@ -94,9 +94,15 @@ public:
 	int time;
 	void read(const rapidjson::Value& v);
 	int parse_time(string s);
-	~TeamEvent() {id = -2;}
+	//~TeamEvent() { }
 	bool operator == (const TeamEvent& a) const {
 		return this->id == a.id;
+	}
+	bool operator > (const TeamEvent& a) const {
+		return this->time > a.time;
+	}
+	bool operator < (const TeamEvent& a) const {
+		return this->time < a.time;
 	}
 };
 
@@ -115,7 +121,7 @@ public:
 	void clean_events(vector<TeamEvent>& events);
 	void count_goal_own();
 	vector<TeamEvent> get_curr_event(int home_or_away, Timeline timeline);
-	//vector<TeamEvent> get_curr_event_union(Timeline timeline);
+	vector<TeamEvent> get_curr_event_union(Timeline timeline);
 	Match() {
 		valid = false;
 	}
