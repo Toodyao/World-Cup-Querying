@@ -62,9 +62,7 @@ void BackEnd::update() {
 	curr_match = matches.get_current_match_info(timeline);
 
 
-	if (timeline.curr() >= knockout_time.seconds()) {
-		knockout.update();
-	}
+	knockout.update();
 }
 
 void BackEnd::update_goal_rank() {

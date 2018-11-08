@@ -1,9 +1,13 @@
 #include "knockout.h"
 
 void Knockout::build_tree() {
-	assert(timeline->curr() >= knockout_time.seconds());
 	tree.clear();
 	tree.resize(16);
+
+	if (timeline->curr() < group_end_time.seconds()) {
+		return;
+	}
+
 	Groups g = *groups;
 	add(7,  make_match(g[A][0], g[B][1]));
 	add(8,  make_match(g[C][0], g[D][1]));

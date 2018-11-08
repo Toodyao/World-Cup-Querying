@@ -81,4 +81,7 @@ TEST(back_end_test, knockout_test) {
 	std::pair<int, int> temp = be.count_goal(v[15], be.timeline);
 	ASSERT_EQ(temp.first, 1);
 
+	be.set_time("2018-06-14T15:00:01Z");
+	be.update();
+
 }
