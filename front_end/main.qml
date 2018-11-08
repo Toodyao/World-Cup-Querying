@@ -29,6 +29,8 @@ ApplicationWindow {
     property var    group_g_data
     property var    group_h_data
 
+    property var    knockout_tree
+
     StackView {
         id: stack
         initialItem: "HomePage.qml"
@@ -58,6 +60,9 @@ ApplicationWindow {
             group_f_data = be.get_group_f()
             group_g_data = be.get_group_g()
             group_h_data = be.get_group_h()
+
+            knockout_tree = be.get_knockout()
+            console.log("knock:", knockout_tree[7].home_goal)
 
         }
     }

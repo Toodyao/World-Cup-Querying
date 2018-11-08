@@ -6,5 +6,7 @@
         <file>GoalRank.qml</file>
         <file>Knockout.qml</file>
         <file>GroupMatch.qml</file>
+        <file>KnockoutBox.qml</file>
+        <file>TeamEvents.qml</file>
     </qresource>
 </RCC>

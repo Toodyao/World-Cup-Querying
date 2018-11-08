@@ -109,6 +109,14 @@ Item {
                 font.pixelSize: 40
             }
         }
+
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+            onClicked: {
+                stack.push("TeamEvents.qml")
+            }
+        }
     }
 
     TextField {

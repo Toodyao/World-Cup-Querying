@@ -92,6 +92,29 @@ QVariantList BackEndQml::get_group_h()
     return groups_to_QVarList(be.groups[7]);
 }
 
+QVariantList BackEndQml::get_knockout()
+{
+    auto v = be.get_knockout();
+    QVariantList ret;
+    QJSEngine jse;
+
+    int n = 16;
+
+    for (int i = 0; i < n; i++) {
+        QJSValue value = jse.newObject();
+        std::pair<int, int> temp = be.count_goal(v[i], be.timeline);
+        value.setProperty("home_name", v[i].home_team.country.c_str());
+        value.setProperty("home_goal", temp.first);
+        value.setProperty("away_name", v[i].away_team.country.c_str());
+        value.setProperty("away_goal", temp.second);
+        value.setProperty("valid", v[i].valid);
+
+        ret.append(value.toVariant());
+    }
+
+    return ret;
+}
+
 QVariantList BackEndQml::get_goal_rank()
 {
     QJSEngine jse;

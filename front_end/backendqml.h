@@ -38,6 +38,8 @@ public:
     Q_INVOKABLE QVariantList get_group_g();
     Q_INVOKABLE QVariantList get_group_h();
 
+    Q_INVOKABLE QVariantList get_knockout();
+
     QVariantList groups_to_QVarList(Rank<Team> v);
 
 signals:
