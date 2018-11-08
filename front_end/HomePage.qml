@@ -192,4 +192,28 @@ Item {
             stack.push("Knockout.qml")
         }
     }
+
+    Button {
+        id: button
+        x: 8
+        y: 327
+        width: 55
+        height: 62
+        Text {
+            width: parent.width
+            anchors.centerIn: parent
+            text: qsTr("已完成的比赛")
+            wrapMode: Text.WordWrap
+        }
+        onClicked: {
+            stack.push("FinishedMatch.qml")
+        }
+    }
+
+    Button {
+        id: button1
+        x: 609
+        y: 341
+        text: qsTr("预告")
+    }
 }

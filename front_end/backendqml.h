@@ -26,6 +26,8 @@ public:
     Q_INVOKABLE QString get_away_name();
     Q_INVOKABLE int get_home_goal();
     Q_INVOKABLE int get_away_goal();
+    Q_INVOKABLE QVariantList get_curr_event();
+    Q_INVOKABLE QVariantList get_finished_match();
 
     Q_INVOKABLE QVariantList get_goal_rank();
 

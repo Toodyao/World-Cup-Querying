@@ -52,6 +52,43 @@ int BackEndQml::get_away_goal()
     return be.get_away_goal();
 }
 
+QVariantList BackEndQml::get_curr_event()
+{
+    QJSEngine jse;
+    QVariantList ret;
+    auto v = be.curr_match.get_curr_event_union(be.timeline);
+    for (auto& i : v) {
+        QJSValue jsv = jse.newObject();
+        jsv.setProperty("name", i.player.c_str());
+        jsv.setProperty("country", i.id > 10000 ? be.curr_match.home_team.country.c_str()
+                                                : be.curr_match.away_team.country.c_str());
+        jsv.setProperty("type", i.type.c_str());
+        jsv.setProperty("time", i.time);
+        ret.append(jsv.toVariant());
+    }
+
+    return ret;
+}
+
+QVariantList BackEndQml::get_finished_match()
+{
+    QVariantList ret;
+    QJSEngine jse;
+    int index = be.get_curr_match_index(be.timeline) - 1;
+    for (int i = index - 1; i >= 0; i--) {
+        Match& temp = be.matches[i];
+        QJSValue jsv = jse.newObject();
+        jsv.setProperty("home_team", temp.home_team.country.c_str());
+        jsv.setProperty("home_goal", temp.home_team.goals);
+        jsv.setProperty("away_team", temp.away_team.country.c_str());
+        jsv.setProperty("away_goal", temp.away_team.goals);
+        jsv.setProperty("time", temp.time.get_string().c_str());
+        ret.append(jsv.toVariant());
+    }
+
+    return ret;
+}
+
 QVariantList BackEndQml::get_group_a()
 {
     return groups_to_QVarList(be.groups[0]);

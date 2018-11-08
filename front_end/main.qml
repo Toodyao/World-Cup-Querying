@@ -30,6 +30,8 @@ ApplicationWindow {
     property var    group_h_data
 
     property var    knockout_tree
+    property var    curr_event
+    property var    finished_match
 
     StackView {
         id: stack
@@ -62,7 +64,9 @@ ApplicationWindow {
             group_h_data = be.get_group_h()
 
             knockout_tree = be.get_knockout()
-            console.log("knock:", knockout_tree[7].home_goal)
+
+            curr_event = be.get_curr_event()
+            finished_match = be.get_finished_match()
 
         }
     }

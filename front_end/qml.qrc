@@ -8,5 +8,6 @@
         <file>GroupMatch.qml</file>
         <file>KnockoutBox.qml</file>
         <file>TeamEvents.qml</file>
+        <file>FinishedMatch.qml</file>
     </qresource>
 </RCC>
