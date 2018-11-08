@@ -20,7 +20,7 @@ public:
 	Teams teams;
 	Groups groups;
 	Knockout knockout;
-	
+
 	demo() {
 		init();
 	}

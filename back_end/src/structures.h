@@ -79,7 +79,10 @@ public:
 	int points = 0; // Used in group matches
 	void read(const rapidjson::Value& v);
 	bool operator > (const Team& a) const {
-		return this->points > a.points;
+		if (this->points == a.points)
+			return this->goals > a.goals;
+		else
+			return this->points > a.points;
 	}
 };
 

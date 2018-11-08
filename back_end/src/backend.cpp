@@ -105,11 +105,13 @@ string BackEnd::get_away_name() {
 }
 
 int BackEnd::get_home_goal() {
-	return curr_match.home_team.goals;
+	auto temp = curr_match.home_team;
+	return temp.goals + temp.goal_penalties + temp.goal_opposite;
 }
 
 int BackEnd::get_away_goal() {
-	return curr_match.away_team.goals;
+	auto temp = curr_match.away_team;
+	return temp.goals + temp.goal_penalties + temp.goal_opposite;
 }
 
 vector<string> BackEnd::get_goal_rank_player_name() {
@@ -122,4 +124,37 @@ vector<string> BackEnd::get_goal_rank_player_name() {
 
 vector<Player> BackEnd::get_goal_rank() {
 	return goal_rank.v;
+}
+
+vector<Match> BackEnd::get_knockout() {
+	return knockout.tree;
+}
+
+std::pair<int, int> BackEnd::count_goal(Match match, Timeline timeline) {
+	int h = 0, a = 0;
+
+	vector<TeamEvent> home, away;
+	if (timeline.curr() - match.time.seconds() <= 130*60) {
+		home = match.get_curr_event(0, timeline);
+		away = match.get_curr_event(1, timeline);
+	} else {
+		home = match.home_events;
+		away = match.away_events;
+	}
+
+	for (auto& i : home) {
+		if (i.type == "goal" || i.type == "goal-penalty")
+			h++;
+		else if (i.type == "goal-own")
+			a++;
+	}
+
+	for (auto& i : away) {
+		if (i.type == "goal" || i.type == "goal-penalty")
+			a++;
+		else if (i.type == "goal-own")
+			h++;
+	}
+
+	return std::make_pair(h, a);
 }

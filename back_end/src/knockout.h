@@ -23,6 +23,8 @@ public:
 	int go_up();
 	Team get_win_team(int i);
 	Team get_lose_team(int i);
+	void recount_goal(Timeline timeline);
+	std::pair<int, int> count_goal(Match match);
 };
 
 

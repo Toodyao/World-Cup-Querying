@@ -53,6 +53,9 @@ TEST(back_end_test, match_status_test) {
 	EXPECT_EQ(be.has_match(), false);
 	auto m = be.matches.get_current_match_info(be.timeline);
 	EXPECT_EQ(m.home_team.country, "Egypt");
+	be.set_time("2018-08-14T18:12:00Z");
+	be.update();
+	m = be.curr_match;
 }
 
 TEST(back_end_test, goal_rank_test) {
@@ -67,4 +70,15 @@ TEST(back_end_test, goal_rank_test) {
 	be.update();
 	v = be.goal_rank.v;
 	ASSERT_EQ(v.size(), 1);
+}
+
+TEST(back_end_test, knockout_test) {
+	BackEnd be;
+	be.init();
+	be.set_time("2018-07-14T15:00:01Z");
+	be.update();
+	auto v = be.get_knockout();
+	std::pair<int, int> temp = be.count_goal(v[15], be.timeline);
+	ASSERT_EQ(temp.first, 1);
+
 }

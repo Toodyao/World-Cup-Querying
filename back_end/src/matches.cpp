@@ -66,7 +66,7 @@ Match Matches::get_current_match_info(Timeline timeline) {
 	int has_match = get_current_match_index(timeline);
 	int index = get_match_index_till(timeline);
 
-	if (has_match == -1) // If no match at current time.
+	if (has_match == -1 && index != 63) // If no match at current time.
 		index++;                                 // Move index to the next.
 
 	ret = temp = this->operator[](index);

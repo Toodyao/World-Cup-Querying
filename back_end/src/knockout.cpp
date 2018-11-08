@@ -38,7 +38,7 @@ void Knockout::update() {
 		}
 		go_up();
 	}
-
+	recount_goal(*timeline);
 }
 
 void Knockout::pass_match(Match m) {
@@ -120,4 +120,34 @@ Team Knockout::get_lose_team(int i) {
 		return tree[i].away_team;
 	else
 		return tree[i].home_team;
+}
+
+void Knockout::recount_goal(Timeline timeline) {
+	// Re-count goal for on going match.
+	for (auto& i : tree) {
+		if (timeline.curr() - i.time.seconds() >= 130) {
+			auto temp = count_goal(i);
+			i.home_team.goals = temp.first;
+			i.away_team.goals = temp.second;
+		}
+	}
+}
+
+std::pair<int, int> Knockout::count_goal(Match match) {
+	int h = 0, a = 0;
+	for (auto& i : match.home_events) {
+		if (i.type == "goal" || i.type == "goal-penalty")
+			h++;
+		else if (i.type == "goal-own")
+			a++;
+	}
+
+	for (auto& i : match.away_events) {
+		if (i.type == "goal" || i.type == "goal-penalty")
+			a++;
+		else if (i.type == "goal-own")
+			h++;
+	}
+
+	return std::make_pair(h, a);
 }

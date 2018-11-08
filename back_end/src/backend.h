@@ -41,6 +41,8 @@ public:
     int get_away_goal();
     vector<string> get_goal_rank_player_name();
     vector<Player> get_goal_rank();
+    vector<Match>  get_knockout();
+    std::pair<int, int> count_goal(Match match, Timeline timeline);
 };
 
 
