@@ -34,6 +34,7 @@ Item {
         home_goal_v: knockout_tree[7].home_goal
         away_name_v: knockout_tree[7].away_name
         away_goal_v: knockout_tree[7].away_goal
+        match_valid: knockout_tree[7].valid
     }
 
     KnockoutBox {
@@ -44,6 +45,7 @@ Item {
         home_goal_v: knockout_tree[8].home_goal
         away_name_v: knockout_tree[8].away_name
         away_goal_v: knockout_tree[8].away_goal
+        match_valid: knockout_tree[8].valid
     }
 
     KnockoutBox {
@@ -54,6 +56,7 @@ Item {
         home_goal_v: knockout_tree[9].home_goal
         away_name_v: knockout_tree[9].away_name
         away_goal_v: knockout_tree[9].away_goal
+        match_valid: knockout_tree[9].valid
     }
 
     KnockoutBox {
@@ -64,6 +67,7 @@ Item {
         home_goal_v: knockout_tree[10].home_goal
         away_name_v: knockout_tree[10].away_name
         away_goal_v: knockout_tree[10].away_goal
+        match_valid: knockout_tree[10].valid
     }
 
     KnockoutBox {
@@ -74,6 +78,7 @@ Item {
         home_goal_v: knockout_tree[11].home_goal
         away_name_v: knockout_tree[11].away_name
         away_goal_v: knockout_tree[11].away_goal
+        match_valid: knockout_tree[11].valid
     }
 
     KnockoutBox {
@@ -84,6 +89,7 @@ Item {
         home_goal_v: knockout_tree[12].home_goal
         away_name_v: knockout_tree[12].away_name
         away_goal_v: knockout_tree[12].away_goal
+        match_valid: knockout_tree[12].valid
     }
 
     KnockoutBox {
@@ -94,6 +100,7 @@ Item {
         home_goal_v: knockout_tree[13].home_goal
         away_name_v: knockout_tree[13].away_name
         away_goal_v: knockout_tree[13].away_goal
+        match_valid: knockout_tree[13].valid
     }
 
     KnockoutBox {
@@ -104,6 +111,7 @@ Item {
         home_goal_v: knockout_tree[14].home_goal
         away_name_v: knockout_tree[14].away_name
         away_goal_v: knockout_tree[14].away_goal
+        match_valid: knockout_tree[14].valid
     }
 
     KnockoutBox {
@@ -114,6 +122,7 @@ Item {
         home_goal_v: knockout_tree[3].home_goal
         away_name_v: knockout_tree[3].away_name
         away_goal_v: knockout_tree[3].away_goal
+        match_valid: knockout_tree[3].valid
     }
 
     KnockoutBox {
@@ -124,6 +133,7 @@ Item {
         home_goal_v: knockout_tree[4].home_goal
         away_name_v: knockout_tree[4].away_name
         away_goal_v: knockout_tree[4].away_goal
+        match_valid: knockout_tree[4].valid
     }
 
     KnockoutBox {
@@ -134,6 +144,7 @@ Item {
         home_goal_v: knockout_tree[5].home_goal
         away_name_v: knockout_tree[5].away_name
         away_goal_v: knockout_tree[5].away_goal
+        match_valid: knockout_tree[5].valid
     }
 
     KnockoutBox {
@@ -144,6 +155,7 @@ Item {
         home_goal_v: knockout_tree[6].home_goal
         away_name_v: knockout_tree[6].away_name
         away_goal_v: knockout_tree[6].away_goal
+        match_valid: knockout_tree[6].valid
     }
 
     KnockoutBox {
@@ -154,6 +166,7 @@ Item {
         home_goal_v: knockout_tree[1].home_goal
         away_name_v: knockout_tree[1].away_name
         away_goal_v: knockout_tree[1].away_goal
+        match_valid: knockout_tree[1].valid
     }
 
     KnockoutBox {
@@ -164,6 +177,7 @@ Item {
         home_goal_v: knockout_tree[2].home_goal
         away_name_v: knockout_tree[2].away_name
         away_goal_v: knockout_tree[2].away_goal
+        match_valid: knockout_tree[2].valid
     }
 
     KnockoutBox {
@@ -174,6 +188,7 @@ Item {
         home_goal_v: knockout_tree[0].home_goal
         away_name_v: knockout_tree[0].away_name
         away_goal_v: knockout_tree[0].away_goal
+        match_valid: knockout_tree[0].valid
     }
 
     KnockoutBox {
@@ -184,6 +199,7 @@ Item {
         home_goal_v: knockout_tree[15].home_goal
         away_name_v: knockout_tree[15].away_name
         away_goal_v: knockout_tree[15].away_goal
+        match_valid: knockout_tree[15].valid
     }
 
 

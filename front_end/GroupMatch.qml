@@ -549,6 +549,70 @@ Item {
         }
     }
 
+    Label {
+        id: label
+        x: 131
+        y: 90
+        text: qsTr("A组")
+        font.pointSize: 13
+    }
+
+    Label {
+        id: label1
+        x: 363
+        y: 90
+        text: qsTr("B组")
+        font.pointSize: 13
+    }
+
+    Label {
+        id: label2
+        x: 590
+        y: 90
+        text: qsTr("C组")
+        font.pointSize: 13
+    }
+
+    Label {
+        id: label3
+        x: 823
+        y: 90
+        text: qsTr("D组")
+        font.pointSize: 13
+    }
+
+    Label {
+        id: label4
+        x: 131
+        y: 289
+        text: qsTr("E组")
+        font.pointSize: 13
+    }
+
+    Label {
+        id: label5
+        x: 363
+        y: 289
+        text: qsTr("F组")
+        font.pointSize: 13
+    }
+
+    Label {
+        id: label6
+        x: 590
+        y: 289
+        text: qsTr("G组")
+        font.pointSize: 13
+    }
+
+    Label {
+        id: label7
+        x: 823
+        y: 289
+        text: qsTr("H组")
+        font.pointSize: 13
+    }
+
 
 
 }
