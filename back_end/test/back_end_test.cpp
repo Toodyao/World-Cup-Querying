@@ -99,3 +99,11 @@ TEST(back_end_test, get_event_union_test) {
 	v = be.curr_match.get_curr_event_union(be.timeline);
 	ASSERT_EQ(v.size(), 10);
 }
+
+TEST(back_end_test, group_test) {
+	BackEnd be;
+	be.init();
+	be.set_time("2018-06-14T15:00:01Z");
+	be.update();
+	ASSERT_EQ(be.groups[A][0].points, 0);
+}
