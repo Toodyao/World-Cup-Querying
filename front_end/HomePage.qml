@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQuick.Window 2.3
 
 Item {
     id: homepage
@@ -126,12 +127,16 @@ Item {
         width: 182
         height: 40
         text: "2018-07-14T15:00:01Z"
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 58
 
         Button {
             id: timeline_confirm
             x: 201
             y: 0
             text: qsTr("确认")
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: -8
             onPressed: {
                 be.timeline = timeline_box.text
             }
@@ -144,6 +149,8 @@ Item {
         y: 83
         width: 168
         height: 86
+        anchors.right: parent.right
+        anchors.rightMargin: 71
 
         Text {
             id: group_text
@@ -163,6 +170,8 @@ Item {
         y: 376
         width: 168
         height: 86
+        anchors.right: parent.right
+        anchors.rightMargin: 71
         Text {
             id: goal_rank_text
             x: 46
@@ -181,6 +190,8 @@ Item {
         y: 227
         width: 168
         height: 86
+        anchors.right: parent.right
+        anchors.rightMargin: 71
         Text {
             id: knockout_text
             x: 46
@@ -215,5 +226,43 @@ Item {
         x: 609
         y: 341
         text: qsTr("预告")
+    }
+
+    Label {
+        id: label
+        x: 188
+        y: 499
+        text: qsTr("第")
+        font.pointSize: 14
+    }
+
+    TextField {
+        id: index_box
+        x: 213
+        y: 492
+        width: 40
+        height: 40
+        horizontalAlignment: TextInput.AlignHCenter
+        text: be.matchIndex + 1
+    }
+
+    Label {
+        id: label1
+        x: 259
+        y: 499
+        text: qsTr("场")
+        font.pointSize: 14
+    }
+
+    Button {
+        id: index_confirm
+        x: 343
+        y: 484
+        text: qsTr("确认")
+        anchors.bottomMargin: 8
+        anchors.bottom: parent.bottom
+        onPressed: {
+            be.matchIndex = index_box.text - 1
+        }
     }
 }

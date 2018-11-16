@@ -13,12 +13,15 @@ class BackEndQml : public QObject
 //    Q_DECLARE_METATYPE(Player)
 
     Q_PROPERTY(QString timeline READ getTimeline WRITE setTimeline NOTIFY timelineChanged)
+    Q_PROPERTY(int     matchIndex READ getMatchIndex WRITE setMatchIndex NOTIFY indexChanged)
 
 public:
     explicit BackEndQml(QObject *parent = nullptr);
 
     QString getTimeline();
     void    setTimeline(const QString& t);
+    int     getMatchIndex();
+    void    setMatchIndex(const int i);
 
     Q_INVOKABLE int  get_match_index();
     Q_INVOKABLE bool has_match();
@@ -28,6 +31,8 @@ public:
     Q_INVOKABLE int get_away_goal();
     Q_INVOKABLE QVariantList get_curr_event();
     Q_INVOKABLE QVariantList get_finished_match();
+    Q_INVOKABLE QVariantList get_next_match();
+
 
     Q_INVOKABLE QVariantList get_goal_rank();
 
@@ -46,6 +51,7 @@ public:
 
 signals:
     void timelineChanged();
+    void indexChanged();
 
 public slots:
 };

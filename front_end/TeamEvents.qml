@@ -7,6 +7,18 @@ Item {
     width: 960
     height: 540
 
+    function convert_event_type(type_name) {
+       switch(String(type_name)) {
+       case "goal":             return qsTr("进球");
+       case "substitution-in":  return qsTr("换人-上场");
+       case "substitution-out": return qsTr("换人-下场");
+       case "yellow-card":      return qsTr("黄牌");
+       case "red-card":         return qsTr("红牌");
+       case "goal-penalty":     return qsTr("罚球");
+       case "goal-own":         return qsTr("乌龙球");
+       default:                 return type_name;
+       }
+    }
 
     Label {
         id: goal_rank_banner
@@ -60,7 +72,7 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 0
                 Text {
-                    text: modelData.type
+                    text: convert_event_type(modelData.type)
 //                    text: "132333"
                     anchors.right: parent.right
                     anchors.rightMargin: 20

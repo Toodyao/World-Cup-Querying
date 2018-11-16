@@ -22,6 +22,29 @@ void BackEndQml::setTimeline(const QString &t)
     emit timelineChanged();
 }
 
+int BackEndQml::getMatchIndex()
+{
+    return be.get_curr_match_index(be.timeline);
+}
+
+void BackEndQml::setMatchIndex(const int i)
+{
+    auto time = be.matches[i].time;
+    int hour = std::stoi(time.get_string().substr(11, 2)) + 2;
+    string time_str = time.get_string();
+    time_str[11] = hour / 10 + '0';
+    time_str[12] = hour % 10 + '0';
+    MyTime end_time;
+    end_time.set_time(time_str);
+    qDebug() << time_str.c_str();
+    if (end_time.seconds() == be.timeline.curr())
+        return;
+    be.timeline.set_curr(time_str);
+    be.update();
+    emit indexChanged();
+    emit timelineChanged();
+}
+
 int BackEndQml::get_match_index()
 {
     return be.get_curr_match_index(be.timeline);
@@ -87,6 +110,16 @@ QVariantList BackEndQml::get_finished_match()
     }
 
     return ret;
+}
+
+QVariantList BackEndQml::get_next_match()
+{
+//    QJSEngine jse;
+//    QJSValue jsv = jse.newObject();
+//    jsv.setProperty("");
+
+
+//    return
 }
 
 QVariantList BackEndQml::get_group_a()
@@ -178,6 +211,8 @@ QVariantList BackEndQml::groups_to_QVarList(Rank<Team> v)
         QJSValue jsv = jse.newObject();
         jsv.setProperty("country", i.country.c_str());
         jsv.setProperty("points", i.points);
+//        jsv.setProperty("goal", i.goals);
+
         ret.append(jsv.toVariant());
     }
     return ret;

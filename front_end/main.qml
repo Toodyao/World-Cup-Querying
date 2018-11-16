@@ -45,7 +45,6 @@ ApplicationWindow {
         onTimelineChanged: {
             console.log("timeline changed", timeline)
             hasMatch = be.has_match();
-            console.log("hasMatch: ", hasMatch)
             matchIndex = be.get_match_index()
             homeName = be.get_home_name()
             awayName = be.get_away_name()
@@ -67,6 +66,7 @@ ApplicationWindow {
 
             curr_event = be.get_curr_event()
             finished_match = be.get_finished_match()
+
 
         }
     }
