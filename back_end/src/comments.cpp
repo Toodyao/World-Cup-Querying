@@ -22,7 +22,22 @@ void Comments::load_comments_from_file(const string& file_path) {
 }
 
 void Comments::add_comment(CommentType t) {
+    // Write to vector
     v.push_back(t);
+
+    // Write to DOM tree
+    Value temp(kObjectType);
+    auto& alctr = d.GetAllocator();
+    temp.AddMember("id", Value().SetInt(t.id), alctr);
+    temp.AddMember("time", Value().SetString(t.time.c_str(), (SizeType)(t.time.length())), alctr);
+    temp.AddMember("name", Value().SetString(t.name.c_str(), (SizeType)(t.name.length())), alctr);
+    temp.AddMember("comment", Value().SetString(t.comment_raw.c_str(),
+                    (SizeType)(t.comment_raw.length())), alctr);
+    temp.AddMember("index", t.index, alctr);
+    d.PushBack(temp, alctr);
+
+
+    write_back();
 }
 
 void Comments::del_comment(int id) {
