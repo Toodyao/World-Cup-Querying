@@ -106,6 +106,7 @@ QVariantList BackEndQml::get_finished_match()
         jsv.setProperty("away_team", temp.away_team.country.c_str());
         jsv.setProperty("away_goal", temp.away_team.goals);
         jsv.setProperty("time", temp.time.get_string().c_str());
+        jsv.setProperty("index", i);
         ret.append(jsv.toVariant());
     }
 
@@ -119,7 +120,22 @@ QVariantList BackEndQml::get_next_match()
 //    jsv.setProperty("");
 
 
-//    return
+    //    return
+}
+
+QVariant BackEndQml::get_match_by_index(int index)
+{
+    QJSEngine jse;
+    Match temp = be.get_match(index);
+    QJSValue jsv = jse.newObject();
+    jsv.setProperty("home_team", temp.home_team.country.c_str());
+    jsv.setProperty("home_goal", temp.home_team.goals);
+    jsv.setProperty("away_team", temp.away_team.country.c_str());
+    jsv.setProperty("away_goal", temp.away_team.goals);
+    jsv.setProperty("time", temp.time.get_string().c_str());
+    jsv.setProperty("index", index);
+
+    return jsv.toVariant();
 }
 
 QVariantList BackEndQml::get_group_a()

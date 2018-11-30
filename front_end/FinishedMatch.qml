@@ -39,16 +39,17 @@ Item {
         delegate: history_delegate
         model: finished_match
         spacing: 5
+        ScrollBar.vertical :ScrollBar {}
     }
 
     Component {
         id: history_delegate
-        //                x: 52
-        //                y: 97
-        //                width: history_list_view.width
-        //                height: 100
-        //                anchors.horizontalCenterOffset: 0
-        //                anchors.horizontalCenter: parent.horizontalCenter
+//                        x: 52
+//                        y: 97
+//                        width: history_list_view.width
+//                        height: 100
+//                        anchors.horizontalCenterOffset: 0
+//                        anchors.horizontalCenter: parent.horizontalCenter
         Rectangle {
             id: rectangle
             width: history_list_view.width
@@ -144,8 +145,31 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
+            Label {
+                id: history_index
+                x: 188
+                y: 8
+                text: modelData.index
+                anchors.horizontalCenterOffset: 0
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 78
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            MouseArea {
+                width: history_list_view.width
+                height: 100
+                onClicked: {
+                    selected_match = {
+                        index: modelData.index,
+                        home_goal: modelData.home_goal,
+                        away_goal: modelData.away_goal,
+                        home_team: modelData.home_team,
+                        away_team: modelData.away_team
+                    }
+                    stack.push("MatchDetail.qml")
+                }
+            }
         }
     }
-
-
 }

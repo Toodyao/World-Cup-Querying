@@ -156,3 +156,7 @@ std::pair<int, int> BackEnd::count_goal(Match match, Timeline timeline) {
 
 	return std::make_pair(h, a);
 }
+
+Match BackEnd::get_match(const int index) {
+    return matches[index];
+}

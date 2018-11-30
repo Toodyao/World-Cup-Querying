@@ -33,6 +33,10 @@ ApplicationWindow {
     property var    curr_event
     property var    finished_match
 
+    property var    selected_match
+    property var    selected_event
+    property int    event_list_width
+
     StackView {
         id: stack
         initialItem: "HomePage.qml"

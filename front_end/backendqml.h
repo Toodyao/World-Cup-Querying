@@ -32,6 +32,7 @@ public:
     Q_INVOKABLE QVariantList get_curr_event();
     Q_INVOKABLE QVariantList get_finished_match();
     Q_INVOKABLE QVariantList get_next_match();
+    Q_INVOKABLE QVariant get_match_by_index(int index);
 
 
     Q_INVOKABLE QVariantList get_goal_rank();

@@ -64,15 +64,6 @@ Item {
             }
         }
 
-        Text {
-            id: match_index
-            text: "-1"
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: 31
-            font.pixelSize: 19
-        }
-
         Rectangle {
             id: home_name_box
             anchors.left: parent.left
@@ -115,7 +106,9 @@ Item {
             id: mouseArea
             anchors.fill: parent
             onClicked: {
-                stack.push("TeamEvents.qml")
+                selected_event = curr_event
+                selected_match = be.get_match_by_index(be.matchIndex);
+                stack.push("MatchDetail.qml")
             }
         }
     }

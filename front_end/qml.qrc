@@ -9,5 +9,8 @@
         <file>KnockoutBox.qml</file>
         <file>TeamEvents.qml</file>
         <file>FinishedMatch.qml</file>
+        <file>MatchDetail.qml</file>
+        <file>SharedPage.qml</file>
+        <file>EventDelegate.qml</file>
     </qresource>
 </RCC>
