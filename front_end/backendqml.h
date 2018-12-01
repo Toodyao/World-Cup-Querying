@@ -30,6 +30,7 @@ public:
     Q_INVOKABLE int get_home_goal();
     Q_INVOKABLE int get_away_goal();
     Q_INVOKABLE QVariantList get_curr_event();
+    Q_INVOKABLE QVariantList get_event_by_index(int index);
     Q_INVOKABLE QVariantList get_finished_match();
     Q_INVOKABLE QVariantList get_next_match();
     Q_INVOKABLE QVariant get_match_by_index(int index);
@@ -47,8 +48,10 @@ public:
     Q_INVOKABLE QVariantList get_group_h();
 
     Q_INVOKABLE QVariantList get_knockout();
+    Q_INVOKABLE QVariantList get_comments_by_index(int index);
 
     QVariantList groups_to_QVarList(Rank<Team> v);
+
 
 signals:
     void timelineChanged();

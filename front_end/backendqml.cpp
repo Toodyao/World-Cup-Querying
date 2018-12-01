@@ -93,6 +93,24 @@ QVariantList BackEndQml::get_curr_event()
     return ret;
 }
 
+QVariantList BackEndQml::get_event_by_index(int index)
+{
+    QJSEngine jse;
+    QVariantList ret;
+    auto v = be.matches[index].get_curr_event_union(be.timeline);
+    for (auto& i : v) {
+        QJSValue jsv = jse.newObject();
+        jsv.setProperty("name", i.player.c_str());
+        jsv.setProperty("country", i.id > 10000 ? be.matches[index].home_team.country.c_str()
+                                                : be.matches[index].away_team.country.c_str());
+        jsv.setProperty("type", i.type.c_str());
+        jsv.setProperty("time", i.time);
+        ret.append(jsv.toVariant());
+    }
+
+    return ret;
+}
+
 QVariantList BackEndQml::get_finished_match()
 {
     QVariantList ret;
@@ -228,6 +246,24 @@ QVariantList BackEndQml::groups_to_QVarList(Rank<Team> v)
         jsv.setProperty("country", i.country.c_str());
         jsv.setProperty("points", i.points);
 //        jsv.setProperty("goal", i.goals);
+
+        ret.append(jsv.toVariant());
+    }
+    return ret;
+}
+
+QVariantList BackEndQml::get_comments_by_index(int index)
+{
+    QVariantList ret;
+    QJSEngine jse;
+    auto v = be.get_comment_list(index);
+    for (auto& i : v) {
+        QJSValue jsv = jse.newObject();
+        jsv.setProperty("id", i.id);
+        jsv.setProperty("time", i.time.c_str());
+        jsv.setProperty("name", i.name.c_str());
+        jsv.setProperty("comment", i.comment_raw.c_str());
+        jsv.setProperty("index", i.index);
 
         ret.append(jsv.toVariant());
     }

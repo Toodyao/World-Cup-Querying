@@ -36,6 +36,20 @@ ApplicationWindow {
     property var    selected_match
     property var    selected_event
     property int    event_list_width
+    property var    selected_comments
+
+    function convert_event_type1(type_name) {
+        switch(String(type_name)) {
+        case "goal":             return qsTr("进球");
+        case "substitution-in":  return qsTr("上场");
+        case "substitution-out": return qsTr("下场");
+        case "yellow-card":      return qsTr("黄牌");
+        case "red-card":         return qsTr("红牌");
+        case "goal-penalty":     return qsTr("罚球");
+        case "goal-own":         return qsTr("乌龙球");
+        default:                 return type_name;
+        }
+    }
 
     StackView {
         id: stack

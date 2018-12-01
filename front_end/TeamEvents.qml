@@ -8,18 +8,18 @@ SharedPage {
     height: 540
     banner_text: qsTr("当前比赛事件")
 
-    function convert_event_type(type_name) {
-       switch(String(type_name)) {
-       case "goal":             return qsTr("进球");
-       case "substitution-in":  return qsTr("换人-上场");
-       case "substitution-out": return qsTr("换人-下场");
-       case "yellow-card":      return qsTr("黄牌");
-       case "red-card":         return qsTr("红牌");
-       case "goal-penalty":     return qsTr("罚球");
-       case "goal-own":         return qsTr("乌龙球");
-       default:                 return type_name;
-       }
-    }
+//    function convert_event_type(type_name) {
+//       switch(String(type_name)) {
+//       case "goal":             return qsTr("进球");
+//       case "substitution-in":  return qsTr("换人-上场");
+//       case "substitution-out": return qsTr("换人-下场");
+//       case "yellow-card":      return qsTr("黄牌");
+//       case "red-card":         return qsTr("红牌");
+//       case "goal-penalty":     return qsTr("罚球");
+//       case "goal-own":         return qsTr("乌龙球");
+//       default:                 return type_name;
+//       }
+//    }
 
     ListView {
         id: event_list_view

@@ -79,6 +79,14 @@ SharedPage {
                 wrapMode: Text.WordWrap
                 font.pixelSize: 40
             }
+
+            Column {
+                id: column
+                x: 43
+                y: 36
+                width: 200
+                height: 400
+            }
         }
 
         Rectangle {
@@ -114,7 +122,7 @@ SharedPage {
         clip: true
         delegate: EventDelegate {
             id: list_view
-//            event_list_width: parent.width
+            //            event_list_width: parent.width
         }
         model: selected_event
     }
@@ -137,9 +145,11 @@ SharedPage {
             anchors.left: parent.left
             anchors.leftMargin: 0
             Text {
+                x: 169
                 text: "类型"
+                anchors.verticalCenterOffset: 0
+                anchors.rightMargin: 169
                 anchors.right: parent.right
-                anchors.rightMargin: 0.53 * parent.width
                 anchors.verticalCenter: parent.verticalCenter
                 font.pointSize: 12
             }
@@ -169,5 +179,75 @@ SharedPage {
             }
         }
     }
+
+    Text {
+        id: text2
+        x: 282
+        y: 347
+        text: qsTr("评论区")
+        font.pixelSize: 12
+    }
+
+    Text {
+        id: no_comment
+        x: 276
+        y: 395
+        text: selected_comments.length === 0 ? qsTr("暂无评论") : qsTr("")
+        font.pixelSize: 12
+    }
+
+    ListView {
+        id: comment_list_view
+        x: 37
+        y: 375
+        width: 513
+        height: 157
+        anchors.right: parent.right
+        clip: true
+        anchors.rightMargin: 410
+        delegate: comments_box
+        model: selected_comments
+    }
+
+    Component {
+        id: comments_box
+//                x: 37
+//                y: 375
+//                width: 513
+//                height: 89
+//                color: "#ffffff"
+
+        Rectangle {
+            id: comments_box_rect
+            width: 513
+            height: 89
+            color: "#ffffff"
+
+            Text {
+                id: comment_name
+                x: 8
+                y: 18
+                text: modelData.name
+                font.pixelSize: 15
+            }
+
+            Text {
+                id: comment_content
+                x: 8
+                y: 55
+                text: modelData.comment
+                font.pixelSize: 14
+            }
+
+            Text {
+                id: comment_time
+                x: 377
+                y: 18
+                text: modelData.time
+                font.pixelSize: 15
+            }
+        }
+    }
+
 
 }

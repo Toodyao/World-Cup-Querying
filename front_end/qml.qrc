@@ -12,5 +12,6 @@
         <file>MatchDetail.qml</file>
         <file>SharedPage.qml</file>
         <file>EventDelegate.qml</file>
+        <file>test.qml</file>
     </qresource>
 </RCC>
