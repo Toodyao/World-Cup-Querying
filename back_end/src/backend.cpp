@@ -26,6 +26,8 @@ void BackEnd::init() {
 	knockout.set_groups(&groups);
 
 	has_match_bool = false;
+
+	comments.load_comments_from_file("../../data/comments.json");
 }
 
 void BackEnd::init(string data_path) {
@@ -49,6 +51,8 @@ void BackEnd::init(string data_path) {
 	knockout.set_groups(&groups);
 
 	has_match_bool = false;
+
+    comments.load_comments_from_file("../back_end/data/comments.json");
 }
 
 void BackEnd::update() {
@@ -159,4 +163,8 @@ std::pair<int, int> BackEnd::count_goal(Match match, Timeline timeline) {
 
 Match BackEnd::get_match(const int index) {
     return matches[index];
+}
+
+vector<CommentType> BackEnd::get_comment_list(int index) {
+    return comments.get_comment_list(index);
 }

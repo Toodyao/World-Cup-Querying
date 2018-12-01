@@ -6,6 +6,7 @@
 #include "rank.hpp"
 #include "hash.hpp"
 #include "knockout.h"
+#include "comments.h"
 
 using std::string;
 using std::vector;
@@ -19,6 +20,7 @@ public:
 	Teams teams;
 	Groups groups;
 	Knockout knockout;
+	Comments comments;
 
 	Match curr_match;
 	bool has_match_bool;
@@ -44,6 +46,7 @@ public:
     vector<Player> get_goal_rank();
     vector<Match>  get_knockout();
     std::pair<int, int> count_goal(Match match, Timeline timeline);
+    vector<CommentType> get_comment_list(int index);
 };
 
 

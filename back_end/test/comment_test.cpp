@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <iostream>
+#include "backend.h"
 #include "comments.h"
 
 using std::cout;
@@ -43,4 +44,17 @@ TEST(comment_test, add_test) {
     ASSERT_EQ(c.v[2].id, 3001);
 
     ASSERT_EQ(c.d.GetArray().Size(), 3);
+}
+
+TEST(comment_test, backend_read_test) {
+    BackEnd be;
+    be.init();
+    be.set_time("2018-07-14T15:00:01Z");
+    be.update();
+    auto v = be.get_comment_list(0);
+    ASSERT_EQ(v.size(), 0);
+    v = be.get_comment_list(1);
+    ASSERT_EQ(v.size(), 1);
+    v = be.get_comment_list(2);
+    ASSERT_EQ(v.size(), 1);
 }
