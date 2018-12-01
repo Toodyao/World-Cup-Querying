@@ -108,6 +108,7 @@ Item {
             onClicked: {
                 selected_event = curr_event
                 selected_match = be.get_match_by_index(be.matchIndex);
+                selected_comments = be.get_comments_by_index(be.matchIndex)
                 stack.push("MatchDetail.qml")
             }
         }

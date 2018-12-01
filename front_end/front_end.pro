@@ -24,7 +24,8 @@ SOURCES += \
     ../back_end/src/player.cpp \
     ../back_end/src/team.cpp \
     ../back_end/src/team_event.cpp \
-    ../back_end/src/timeline.cpp
+    ../back_end/src/timeline.cpp \
+    ../back_end/src/comments.cpp \
 
 RESOURCES += qml.qrc
 
@@ -56,6 +57,7 @@ HEADERS += \
     ../back_end/src/rank.hpp \
     ../back_end/src/structures.h \
     ../back_end/src/timeline.h \
+    ../back_end/src/comments.h \
     ../back_end/third_party/rapidjson/include/rapidjson/error/en.h \
     ../back_end/third_party/rapidjson/include/rapidjson/error/error.h \
     ../back_end/third_party/rapidjson/include/rapidjson/internal/biginteger.h \
