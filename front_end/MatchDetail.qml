@@ -127,6 +127,16 @@ SharedPage {
         model: selected_event
     }
 
+    Button {
+        id: add_comment_btn
+        x: 333
+        y: 329
+        text: qsTr("添加评论")
+        onPressed: {
+            add_comment_dialog.open()
+        }
+    }
+
     Rectangle {
         id: rectangle
         x: 271
@@ -207,6 +217,7 @@ SharedPage {
         anchors.rightMargin: 410
         delegate: comments_box
         model: selected_comments
+        spacing: 5
     }
 
     Component {
@@ -246,7 +257,87 @@ SharedPage {
                 text: modelData.time
                 font.pixelSize: 15
             }
+
+            Text {
+                id: delete_comment
+                x: 475
+                y: 62
+                text: qsTr("删除")
+                font.pixelSize: 13
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        be.del_comment(modelData.id)
+                        selected_comments = be.get_comments_by_index(modelData.index)
+                    }
+                }
+            }
         }
+    }
+
+
+    Dialog {
+        id: add_comment_dialog
+        focus: true
+        modal: true
+        title: qsTr("添加评论")
+        x: 230
+        y: 100
+
+        contentItem: Rectangle {
+            id: add_comment_box
+            x: 250
+            y: 150
+            implicitWidth: 450
+            implicitHeight: 250
+
+            Button {
+                id: button
+                x: 378
+                y: 194
+                text: qsTr("提交")
+                onPressed: {
+                    be.add_comment(selected_match.index, name_input.text, content_input.text)
+                    selected_comments = be.get_comments_by_index(selected_match.index)
+                    name_input.text = ""
+                    content_input.text = ""
+                    add_comment_dialog.close()
+                }
+            }
+
+            TextField {
+                id: name_input
+                x: 83
+                y: 36
+                text: qsTr("")
+            }
+
+            TextArea {
+                id: content_input
+                x: 83
+                y: 95
+                width: 265
+                height: 105
+                text: qsTr("")
+            }
+
+            Text {
+                id: comment_name_lable
+                x: 35
+                y: 47
+                text: qsTr("昵称")
+                font.pixelSize: 18
+            }
+
+            Text {
+                id: comment_raw
+                x: 35
+                y: 95
+                text: qsTr("评论")
+                font.pixelSize: 18
+            }
+        }
+
     }
 
 

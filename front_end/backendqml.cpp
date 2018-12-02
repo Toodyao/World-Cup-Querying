@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QJSValue>
 #include <QJSEngine>
+#include <QDateTime>
 
 BackEndQml::BackEndQml(QObject *parent) : QObject(parent)
 {
@@ -268,4 +269,29 @@ QVariantList BackEndQml::get_comments_by_index(int index)
         ret.append(jsv.toVariant());
     }
     return ret;
+}
+
+void BackEndQml::add_comment(int index, QString name, QString content)
+{
+    CommentType temp;
+    auto v = be.get_comment_list(index);
+    int max_id = -1;
+    for (auto& i : v)
+        max_id = i.id > max_id ? i.id : max_id;
+    if (max_id == -1)
+        temp.id = index * 1000 + 1;
+    else
+        temp.id = max_id + 1;
+    temp.index = index;
+    temp.name = name.toUtf8().constData();
+    temp.comment_raw = content.toUtf8().constData();
+    QDateTime current_date_time = QDateTime::currentDateTime();
+    QString current_date = current_date_time.toString("yyyy-MM-dd");
+    temp.time = current_date.toUtf8().constData();
+    be.comments.add_comment(temp);
+}
+
+void BackEndQml::del_comment(int id)
+{
+    be.comments.del_comment(id);
 }

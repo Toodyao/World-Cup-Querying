@@ -49,6 +49,8 @@ public:
 
     Q_INVOKABLE QVariantList get_knockout();
     Q_INVOKABLE QVariantList get_comments_by_index(int index);
+    Q_INVOKABLE void         add_comment(int index, QString name, QString content);
+    Q_INVOKABLE void         del_comment(int id);
 
     QVariantList groups_to_QVarList(Rank<Team> v);
 

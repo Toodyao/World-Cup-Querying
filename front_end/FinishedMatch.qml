@@ -168,7 +168,7 @@ Item {
                         away_team: modelData.away_team
                     }
                     selected_event = be.get_event_by_index(modelData.index)
-                    selected_commnets = be.get_comments_by_index(modelData.index)
+                    selected_comments = be.get_comments_by_index(modelData.index)
                     stack.push("MatchDetail.qml")
                 }
             }
