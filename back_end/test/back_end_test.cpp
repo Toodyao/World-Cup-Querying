@@ -49,13 +49,17 @@ TEST(back_end_test, home_and_away_goal_test) {
 TEST(back_end_test, match_status_test) {
 	BackEnd be;
 	be.init();
-	be.set_time("2018-06-14T18:12:00Z");
-	EXPECT_EQ(be.has_match(), false);
-	auto m = be.matches.get_current_match_info(be.timeline);
-	EXPECT_EQ(m.home_team.country, "Egypt");
-	be.set_time("2018-08-14T18:12:00Z");
+	//be.set_time("2018-06-14T18:12:00Z");
+	//EXPECT_EQ(be.has_match(), false);
+	//auto m = be.matches.get_current_match_info(be.timeline);
+	//EXPECT_EQ(m.home_team.country, "Egypt");
+	be.set_time("2018-06-30T21:00:00Z");
 	be.update();
-	m = be.curr_match;
+	ASSERT_EQ(be.has_match(), false);
+	be.set_time("2018-06-30T22:00:01Z");
+	be.update();
+	ASSERT_EQ(be.curr_match.get_curr_event_union(be.timeline).size(), 0);
+
 }
 
 TEST(back_end_test, goal_rank_test) {

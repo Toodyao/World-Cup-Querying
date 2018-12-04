@@ -35,8 +35,11 @@ int BackEndQml::getMatchIndex()
 
 void BackEndQml::setMatchIndex(const int i)
 {
-    if (be.get_curr_match_index(be.timeline) == i)
+//    if (be.get_curr_match_index(be.timeline) == i)
+//        return;
+    if (_matchIndex == i)
         return;
+    _matchIndex = i;
     qDebug() << "set index";
     auto time = be.matches[i].time;
     int hour = std::stoi(time.get_string().substr(11, 2)) + 2;
@@ -161,10 +164,11 @@ QVariant BackEndQml::get_match_by_index(int index)
     QJSEngine jse;
     Match temp = be.get_match(index);
     QJSValue jsv = jse.newObject();
+    auto goal_pair = be.count_goal(temp, be.timeline);
     jsv.setProperty("home_team", temp.home_team.country.c_str());
-    jsv.setProperty("home_goal", temp.home_team.goals);
+    jsv.setProperty("home_goal", goal_pair.first);
     jsv.setProperty("away_team", temp.away_team.country.c_str());
-    jsv.setProperty("away_goal", temp.away_team.goals);
+    jsv.setProperty("away_goal", goal_pair.second);
     jsv.setProperty("time", temp.time.get_string().c_str());
     jsv.setProperty("index", index);
 

@@ -29,7 +29,6 @@ void Match::read(const rapidjson::Value& d) {
 	away_team.read(d["away_team"]);
 	winner = d["winner"].GetString();
 	time.set_time_init(d["datetime"].GetString());
-	std::cout << time.get_string() << std::endl;
 
 #ifdef DEBUG_READ_DATA_OUTPUT
 	cout << winner << endl;
