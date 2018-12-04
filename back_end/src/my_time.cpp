@@ -76,6 +76,20 @@ void MyTime::set_time(std::string t) {
 	seconds_total = difftime(time_value, zero_value);
 }
 
+void MyTime::set_time_init(std::string t) {
+    time_raw.tm_year = stoi(t.substr(0, 4)) - 1900;
+    time_raw.tm_mon  = stoi(t.substr(5, 2)) - 1;
+    time_raw.tm_mday = stoi(t.substr(8, 2));
+    time_raw.tm_hour = stoi(t.substr(11, 2));
+    time_raw.tm_min  = stoi(t.substr(14, 2));
+    time_raw.tm_sec  = stoi(t.substr(17, 2));
+	time_value = mktime(&time_raw) + 8 * 60 * 60;
+	time_raw = *localtime(&time_value);
+	time_value = mktime(&time_raw);
+    zero_value = mktime(&zero_time);
+    seconds_total = difftime(time_value, zero_value);
+}
+
 int MyTime::year() {
 	return time_raw.tm_year + 1900;
 }

@@ -19,6 +19,7 @@ public:
 	explicit MyTime(const char* t);
 
 	void set_time(std::string t);
+	void set_time_init(std::string t);
 
 	std::string get_string();
 	int seconds();
