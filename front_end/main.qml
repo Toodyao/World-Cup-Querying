@@ -61,9 +61,11 @@ ApplicationWindow {
     BackEndQml {
         id: be
         onTimelineChanged: {
-            console.log("timeline changed", timeline)
+            console.log("timeline changed main", timeline)
             hasMatch = be.has_match();
             matchIndex = be.get_match_index()
+            console.log("get_match_index main", be.get_match_index());
+            console.log("index changed main", matchIndex);
             homeName = be.get_home_name()
             awayName = be.get_away_name()
             homeGoal = be.get_home_goal()

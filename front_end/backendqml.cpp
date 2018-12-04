@@ -23,28 +23,39 @@ void BackEndQml::setTimeline(const QString &t)
         return;
     be.set_time(t.toLocal8Bit().constData());
     be.update();
+    qDebug() << "setTimeLine" << t;
     emit timelineChanged();
 }
 
 int BackEndQml::getMatchIndex()
 {
-    return be.get_curr_match_index(be.timeline);
+    _matchIndex = be.get_curr_match_index(be.timeline);
+    return _matchIndex;
 }
 
 void BackEndQml::setMatchIndex(const int i)
 {
+    if (be.get_curr_match_index(be.timeline) == i)
+        return;
+    qDebug() << "set index";
     auto time = be.matches[i].time;
     int hour = std::stoi(time.get_string().substr(11, 2)) + 2;
+//    int hour = std::stoi(time.get_string().substr(11, 2));
     string time_str = time.get_string();
     time_str[11] = hour / 10 + '0';
     time_str[12] = hour % 10 + '0';
     MyTime end_time;
     end_time.set_time(time_str);
-    qDebug() << time_str.c_str();
-    if (end_time.seconds() == be.timeline.curr())
+    qDebug() << "index->time" << time_str.c_str();
+    if (be.curr_match.time.seconds() == be.timeline.curr())
         return;
     be.timeline.set_curr(time_str);
     be.update();
+
+//    if (_matchIndex == i)
+//        return;
+//    _matchIndex = i;
+
     emit indexChanged();
     emit timelineChanged();
 }
@@ -119,7 +130,7 @@ QVariantList BackEndQml::get_finished_match()
 {
     QVariantList ret;
     QJSEngine jse;
-    int index = be.get_curr_match_index(be.timeline) - 1;
+    int index = be.get_curr_match_index(be.timeline);
     for (int i = index - 1; i >= 0; i--) {
         Match& temp = be.matches[i];
         QJSValue jsv = jse.newObject();

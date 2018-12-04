@@ -132,6 +132,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: -8
             onPressed: {
+                console.log("timeline_box: ", timeline_box.text)
                 be.timeline = timeline_box.text
             }
         }
