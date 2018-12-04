@@ -215,13 +215,6 @@ Item {
         }
     }
 
-    Button {
-        id: button1
-        x: 609
-        y: 341
-        text: qsTr("预告")
-    }
-
     Label {
         id: label
         x: 188
@@ -257,6 +250,7 @@ Item {
         anchors.bottom: parent.bottom
         onPressed: {
             be.matchIndex = index_box.text - 1
+            timeline_box.text = be.timeline
         }
     }
 }

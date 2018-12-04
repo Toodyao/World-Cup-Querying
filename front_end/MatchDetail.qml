@@ -137,6 +137,70 @@ SharedPage {
         }
     }
 
+    Dialog {
+        id: add_comment_dialog
+        focus: true
+        modal: true
+        title: qsTr("添加评论")
+        x: 230
+        y: 100
+
+        contentItem: Rectangle {
+            id: add_comment_box
+            x: 250
+            y: 150
+            implicitWidth: 450
+            implicitHeight: 250
+
+            Button {
+                id: button
+                x: 378
+                y: 194
+                text: qsTr("提交")
+                onPressed: {
+                    be.add_comment(selected_match.index, name_input.text, content_input.text)
+                    selected_comments = be.get_comments_by_index(selected_match.index)
+                    name_input.text = ""
+                    content_input.text = ""
+                    add_comment_dialog.close()
+                }
+            }
+
+            TextField {
+                id: name_input
+                x: 83
+                y: 36
+                text: qsTr("")
+            }
+
+            TextArea {
+                id: content_input
+                x: 83
+                y: 95
+                width: 265
+                height: 105
+                text: qsTr("")
+            }
+
+            Text {
+                id: comment_name_lable
+                x: 35
+                y: 47
+                text: qsTr("昵称")
+                font.pixelSize: 18
+            }
+
+            Text {
+                id: comment_raw
+                x: 35
+                y: 95
+                text: qsTr("评论")
+                font.pixelSize: 18
+            }
+        }
+
+    }
+
     Rectangle {
         id: rectangle
         x: 271
@@ -275,70 +339,17 @@ SharedPage {
         }
     }
 
-
-    Dialog {
-        id: add_comment_dialog
-        focus: true
-        modal: true
-        title: qsTr("添加评论")
-        x: 230
-        y: 100
-
-        contentItem: Rectangle {
-            id: add_comment_box
-            x: 250
-            y: 150
-            implicitWidth: 450
-            implicitHeight: 250
-
-            Button {
-                id: button
-                x: 378
-                y: 194
-                text: qsTr("提交")
-                onPressed: {
-                    be.add_comment(selected_match.index, name_input.text, content_input.text)
-                    selected_comments = be.get_comments_by_index(selected_match.index)
-                    name_input.text = ""
-                    content_input.text = ""
-                    add_comment_dialog.close()
-                }
-            }
-
-            TextField {
-                id: name_input
-                x: 83
-                y: 36
-                text: qsTr("")
-            }
-
-            TextArea {
-                id: content_input
-                x: 83
-                y: 95
-                width: 265
-                height: 105
-                text: qsTr("")
-            }
-
-            Text {
-                id: comment_name_lable
-                x: 35
-                y: 47
-                text: qsTr("昵称")
-                font.pixelSize: 18
-            }
-
-            Text {
-                id: comment_raw
-                x: 35
-                y: 95
-                text: qsTr("评论")
-                font.pixelSize: 18
-            }
+    Button {
+        id: open_video
+        x: 674
+        y: 23
+        text: qsTr("观看回放")
+        onPressed: {
+            be.open_video(selected_match.index)
         }
-
     }
+
+
 
 
 }

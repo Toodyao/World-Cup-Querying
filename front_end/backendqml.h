@@ -4,11 +4,14 @@
 #include "../back_end/src/backend.h"
 #include <QObject>
 #include <QVariantList>
+#include <vector>
 
 class BackEndQml : public QObject
 {
     Q_OBJECT
     BackEnd be;
+    std::vector<string> video_list;
+    int _matchIndex;
 
 //    Q_DECLARE_METATYPE(Player)
 
@@ -51,8 +54,10 @@ public:
     Q_INVOKABLE QVariantList get_comments_by_index(int index);
     Q_INVOKABLE void         add_comment(int index, QString name, QString content);
     Q_INVOKABLE void         del_comment(int id);
+    Q_INVOKABLE void         open_video(int index);
 
     QVariantList groups_to_QVarList(Rank<Team> v);
+    void read_video_list(string path);
 
 
 signals:

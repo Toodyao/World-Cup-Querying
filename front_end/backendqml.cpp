@@ -3,10 +3,13 @@
 #include <QJSValue>
 #include <QJSEngine>
 #include <QDateTime>
+#include <QDesktopServices>
+#include <QUrl>
 
 BackEndQml::BackEndQml(QObject *parent) : QObject(parent)
 {
     be.init("../back_end/data/output.json");
+    read_video_list("../back_end/data/video_list.txt");
 }
 
 QString BackEndQml::getTimeline()
@@ -253,6 +256,20 @@ QVariantList BackEndQml::groups_to_QVarList(Rank<Team> v)
     return ret;
 }
 
+void BackEndQml::read_video_list(std::string path)
+{
+    FILE* fp = fopen(path.c_str(), "r");
+    assert(fp);
+    char buffer[256];
+    video_list.resize(64);
+    for (int i = 0; i < 64; i++) {
+        string temp = fgets(buffer, 256, fp);
+//        qDebug() << temp.c_str();
+        video_list[i] = temp;
+    }
+    fclose(fp);
+}
+
 QVariantList BackEndQml::get_comments_by_index(int index)
 {
     QVariantList ret;
@@ -294,4 +311,12 @@ void BackEndQml::add_comment(int index, QString name, QString content)
 void BackEndQml::del_comment(int id)
 {
     be.comments.del_comment(id);
+}
+
+void BackEndQml::open_video(int index)
+{
+    QString url = QString::fromStdString(video_list[index]);
+    url.replace(QString("\n"), QString(""));
+//    qDebug() << "url: " << url;
+    QDesktopServices::openUrl(QUrl(url));
 }

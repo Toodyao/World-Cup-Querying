@@ -149,7 +149,7 @@ Item {
                 id: history_index
                 x: 188
                 y: 8
-                text: modelData.index
+                text: modelData.index + 1
                 anchors.horizontalCenterOffset: 0
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 78
